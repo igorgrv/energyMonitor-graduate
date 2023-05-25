@@ -1,11 +1,13 @@
 package graduate.energymonitor.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @EqualsAndHashCode
+@AllArgsConstructor
 public class Location {
 
     private String address;
@@ -15,13 +17,5 @@ public class Location {
     @Setter
     private String city;
     private String state;
-
-    public Location(String address, Integer number, String neighborhood, String city, String state) {
-        this.address = address;
-        this.number = number;
-        this.neighborhood = neighborhood;
-        this.city = city;
-        this.state = state;
-    }
 
 }

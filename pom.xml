@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>graduate</groupId>
 	<artifactId>energymonitor</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>energymonitor</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Energy Monitor project for FIAP's tech challenge</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

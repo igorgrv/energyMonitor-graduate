@@ -1,0 +1,3 @@
+spring:
+    application.name: EnergyMonitor
+    banner.location: static/banner.txt

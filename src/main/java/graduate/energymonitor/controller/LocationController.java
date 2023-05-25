@@ -25,25 +25,25 @@ public class LocationController {
     private LocationService locationService;
 
     @GetMapping("/findAll")
-    public ResponseEntity<Object> getAllLocations() {
+    public ResponseEntity<Set<Location>> getAllLocations() {
         Set<Location> locations = locationService.findAll();
         return ResponseEntity.ok().body(locations);
     }
 
     @GetMapping("/findBy/city/{city}")
-    public ResponseEntity<Object> getLocationByAddress(@PathVariable String city) {
+    public ResponseEntity<Location> getLocationByAddress(@PathVariable String city) {
         Location location = locationService.findByCity(city);
         return ResponseEntity.ok().body(location);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> createLocation(@Valid @RequestBody LocationDto request) {
+    public ResponseEntity<Location> createLocation(@Valid @RequestBody LocationDto request) {
         Location location = locationService.addLocation(request);
         return ResponseEntity.ok().body(location);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> deleteLocation(@Valid @RequestBody LocationDto request) {
+    public ResponseEntity<String> deleteLocation(@Valid @RequestBody LocationDto request) {
         locationService.deleteLocation(request);
         return ResponseEntity.ok().body("Location was deleted");
     }

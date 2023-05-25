@@ -15,8 +15,8 @@ public class LocationRepository {
 
     public LocationRepository() {
         locations.add(new Location("Rua 1", 1, "Vila Olímpia", "São Paulo", "São Paulo"));
-        locations.add(new Location("Rua 2", 2, "Santo Amaro", "São Paulo", "São Paulo"));
-        locations.add(new Location("Rua 3", 3, "Barra Funda", "São Paulo", "São Paulo"));
+        locations.add(new Location("Rua 2", 2, "Santo Amaro", "Rio de Janeiro", "Rio de Janeiro"));
+        locations.add(new Location("Rua 3", 3, "Barra Funda", "Belo Horizonte", "Minas Gerais"));
     }
 
     public Set<Location> findAll() {
