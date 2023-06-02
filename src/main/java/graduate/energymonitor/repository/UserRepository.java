@@ -41,4 +41,8 @@ public class UserRepository {
         users.remove(user);
     }
 
+    public boolean exists(User user) {
+        return this.users.contains(user);
+    }
+
 }

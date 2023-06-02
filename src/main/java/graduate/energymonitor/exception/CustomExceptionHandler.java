@@ -15,14 +15,12 @@ public class CustomExceptionHandler {
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<Object> handleAlreadyExistsException(AlreadyExistsException ex) {
         Error error = new Error(HttpStatus.CONFLICT.value(), ex.getMessage());
-        ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {
         Error error = new Error(HttpStatus.NOT_FOUND.value(), ex.getMessage());
-        ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 

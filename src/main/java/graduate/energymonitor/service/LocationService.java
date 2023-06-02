@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import graduate.energymonitor.controller.dto.LocationDto;
 import graduate.energymonitor.entity.Location;
+import graduate.energymonitor.exception.AlreadyExistsException;
 import graduate.energymonitor.exception.NotFoundException;
 import graduate.energymonitor.repository.LocationRepository;
-import jakarta.validation.Valid;
 
 @Service
 public class LocationService {
@@ -25,12 +25,14 @@ public class LocationService {
         return repository.findByCity(city).orElseThrow(() -> new NotFoundException("Location not found"));
     }
 
-    public Location addLocation(@Valid LocationDto request) {
+    public Location addLocation(LocationDto request) {
         Location location = request.toLocation();
+        if (repository.exists(location))
+            throw new AlreadyExistsException(String.format("Location %s already exists", location));
         return repository.addLocation(location);
     }
 
-    public void deleteLocation(@Valid LocationDto request) {
+    public void deleteLocation(LocationDto request) {
         Location location = request.toLocation();
         repository.deleteLocation(location);
     }

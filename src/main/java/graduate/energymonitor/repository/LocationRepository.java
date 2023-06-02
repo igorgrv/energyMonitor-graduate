@@ -37,4 +37,8 @@ public class LocationRepository {
         locations.remove(location);
     }
 
+    public boolean exists(Location location) {
+        return this.locations.contains(location);
+    }
+
 }

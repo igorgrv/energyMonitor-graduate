@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import graduate.energymonitor.controller.dto.ApplianceDto;
 import graduate.energymonitor.entity.Appliance;
+import graduate.energymonitor.exception.AlreadyExistsException;
 import graduate.energymonitor.exception.NotFoundException;
 import graduate.energymonitor.repository.ApplianceRepository;
 import jakarta.validation.Valid;
@@ -28,11 +29,18 @@ public class ApplianceService {
 
     public Appliance add(@Valid ApplianceDto request) {
         Appliance appliance = request.toAppliance();
+        if (repository.exists(appliance))
+            throw new AlreadyExistsException(String.format("Appliance %s already exists", appliance));
         return repository.add(appliance);
     }
 
     public void delete(@Valid ApplianceDto request) {
         Appliance appliance = request.toAppliance();
+        repository.delete(appliance);
+    }
+
+    public void deleteByName(String name) {
+        Appliance appliance = findByName(name);
         repository.delete(appliance);
     }
 

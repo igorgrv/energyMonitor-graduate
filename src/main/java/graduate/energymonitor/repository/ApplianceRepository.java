@@ -30,6 +30,10 @@ public class ApplianceRepository {
                 .findFirst();
     }
 
+    public boolean exists(Appliance appliance) {
+        return this.appliances.contains(appliance);
+    }
+
     public Appliance add(Appliance appliance) {
         appliances.add(appliance);
         return appliance;

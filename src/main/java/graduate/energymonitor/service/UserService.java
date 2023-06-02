@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import graduate.energymonitor.controller.dto.UserDto;
 import graduate.energymonitor.entity.User;
+import graduate.energymonitor.exception.AlreadyExistsException;
 import graduate.energymonitor.exception.NotFoundException;
 import graduate.energymonitor.repository.UserRepository;
-import jakarta.validation.Valid;
 
 @Service
 public class UserService {
@@ -26,12 +26,14 @@ public class UserService {
         return repository.findByName(name).orElseThrow(() -> new NotFoundException("User not found"));
     }
 
-    public User add(@Valid UserDto request) {
+    public User add(UserDto request) {
         User user = request.toUser();
+        if (repository.exists(user))
+            throw new AlreadyExistsException(String.format("User %s already exists", user));
         return repository.add(user);
     }
 
-    public void delete(@Valid UserDto request) {
+    public void delete(UserDto request) {
         User user = request.toUser();
         repository.delete(user);
     }
