@@ -1,4 +1,4 @@
-package graduate.energymonitor.entity;
+package graduate.energymonitor.entity.enums;
 
 public enum GenderEnum {
 

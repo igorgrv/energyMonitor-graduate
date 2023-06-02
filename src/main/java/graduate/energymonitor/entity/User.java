@@ -2,6 +2,8 @@ package graduate.energymonitor.entity;
 
 import java.time.LocalDate;
 
+import graduate.energymonitor.entity.enums.GenderEnum;
+import graduate.energymonitor.entity.enums.RelativesEnum;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,5 +18,5 @@ public class User {
     private String name;
     private LocalDate birth;
     private GenderEnum gender;
-    // private String grauParentesco; ????
+    private RelativesEnum relative;
 }

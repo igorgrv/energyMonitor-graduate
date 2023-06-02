@@ -33,7 +33,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Object> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
-        Error error = new Error(HttpStatus.BAD_REQUEST.value(), "Date Could not be parsed");
+        Error error = new Error(HttpStatus.NOT_ACCEPTABLE.value(), ex.getMessage());
         return ResponseEntity.badRequest().body(error);
     }
 

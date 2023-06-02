@@ -29,9 +29,16 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
     // HTTP 200
     [
       {
+        "address": "Rua 2",
+        "number": 2,
+        "neighborhood": "Ipanema",
+        "city": "Rio de Janeiro",
+        "state": "Rio de Janeiro"
+      },
+      {
         "address": "Rua 3",
         "number": 3,
-        "neighborhood": "Barra Funda",
+        "neighborhood": "Camanducaia",
         "city": "Belo Horizonte",
         "state": "Minas Gerais"
       },
@@ -41,13 +48,6 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
         "neighborhood": "Vila Olímpia",
         "city": "São Paulo",
         "state": "São Paulo"
-      },
-      {
-        "address": "Rua 2",
-        "number": 2,
-        "neighborhood": "Santo Amaro",
-        "city": "Rio de Janeiro",
-        "state": "Rio de Janeiro"
       }
     ]
     ```
@@ -87,7 +87,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
       "number": 1,
       "neighborhood": "Vila Olímpia",
       "city": "São Paulo",
-      "state": "São Paulo"
+      "state": "SP"
     }
     ```
 
@@ -118,7 +118,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
         "number": 1,
         "neighborhood": "Vila Olímpia",
         "city": "São Paulo",
-        "state": "São Paulo"
+        "state": "SP"
      }
     ```
 
@@ -147,17 +147,20 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
       {
         "name": "Vlad",
         "birth": "1986-03-08",
-        "gender": "MALE"
-      },
-      {
-        "name": "Maria",
-        "birth": "1996-03-08",
-        "gender": "FEMALE"
+        "gender": "MALE",
+        "relative": "SON"
       },
       {
         "name": "Joao",
         "birth": "1996-03-08",
-        "gender": "MALE"
+        "gender": "MALE",
+        "relative": "FATHER"
+      },
+      {
+        "name": "Maria",
+        "birth": "1996-03-08",
+        "gender": "FEMALE",
+        "relative": "MOTHER"
       }
     ]
     ```
@@ -177,7 +180,8 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
     {
       "name": "Joao",
       "birth": "1996-03-08",
-      "gender": "MALE"
+      "gender": "MALE",
+      "relative": "FATHER"
     }
     ```
 
@@ -193,7 +197,8 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
     {
       "name": "Joao2",
       "birth": "1996-03-08",
-      "gender": "MALE"
+      "gender": "MALE",
+      "relative": "SON"
     }
     ```
 
@@ -204,7 +209,8 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
     {
       "name": "Joao2",
       "birth": "1996-03-08",
-      "gender": "MALE"
+      "gender": "MALE",
+      "relative": "SON"
     }
     ```
 
@@ -220,7 +226,8 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
     {
       "name": "Joao",
       "birth": "1996-03-08",
-      "gender": "MALE"
+      "gender": "MALE",
+      "relative": "FATHER"
     }
     ```
 

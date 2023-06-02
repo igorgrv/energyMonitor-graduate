@@ -8,8 +8,9 @@ import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
-import graduate.energymonitor.entity.GenderEnum;
 import graduate.energymonitor.entity.User;
+import graduate.energymonitor.entity.enums.GenderEnum;
+import graduate.energymonitor.entity.enums.RelativesEnum;
 
 @Repository
 public class UserRepository {
@@ -17,9 +18,9 @@ public class UserRepository {
     Set<User> users = new HashSet<>();
 
     public UserRepository() {
-        users.add(new User("Joao", LocalDate.of(1996, 3, 8), GenderEnum.MALE));
-        users.add(new User("Maria", LocalDate.of(1996, 3, 8), GenderEnum.FEMALE));
-        users.add(new User("Vlad", LocalDate.of(1986, 3, 8), GenderEnum.MALE));
+        users.add(new User("Joao", LocalDate.of(1996, 3, 8), GenderEnum.MALE, RelativesEnum.FATHER));
+        users.add(new User("Maria", LocalDate.of(1996, 3, 8), GenderEnum.FEMALE, RelativesEnum.MOTHER));
+        users.add(new User("Vlad", LocalDate.of(1986, 3, 8), GenderEnum.MALE, RelativesEnum.SON));
     }
 
     public Set<User> findAll() {

@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.stereotype.Repository;
 
 import graduate.energymonitor.entity.Location;
+import graduate.energymonitor.entity.enums.BrazilStatesEnum;
 
 @Repository
 public class LocationRepository {
@@ -14,9 +15,9 @@ public class LocationRepository {
     Set<Location> locations = new HashSet<>();
 
     public LocationRepository() {
-        locations.add(new Location("Rua 1", 1, "Vila Olímpia", "São Paulo", "São Paulo"));
-        locations.add(new Location("Rua 2", 2, "Santo Amaro", "Rio de Janeiro", "Rio de Janeiro"));
-        locations.add(new Location("Rua 3", 3, "Barra Funda", "Belo Horizonte", "Minas Gerais"));
+        locations.add(new Location("Rua 1", 1, "Vila Olímpia", "São Paulo", BrazilStatesEnum.SP));
+        locations.add(new Location("Rua 2", 2, "Ipanema", "Rio de Janeiro", BrazilStatesEnum.RJ));
+        locations.add(new Location("Rua 3", 3, "Camanducaia", "Belo Horizonte", BrazilStatesEnum.MG));
     }
 
     public Set<Location> findAll() {
