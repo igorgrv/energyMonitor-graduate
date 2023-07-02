@@ -19,31 +19,31 @@ import graduate.energymonitor.service.ApplianceService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/appliance")
+@RequestMapping("/appliances")
 public class ApplianceController {
 
     @Autowired
     private ApplianceService service;
 
-    @GetMapping("/findAll")
+    @GetMapping
     public ResponseEntity<Set<Appliance>> getAllAppliances() {
         Set<Appliance> appliances = service.findAll();
         return ResponseEntity.ok().body(appliances);
     }
 
-    @GetMapping("/findBy/name/{name}")
-    public ResponseEntity<Appliance> getApplianceByAddress(@PathVariable String name) {
-        Appliance appliance = service.findByName(name);
-        return ResponseEntity.ok().body(appliance);
+    @GetMapping("/{name}")
+    public ResponseEntity<Set<Appliance>> getApplianceByAddress(@PathVariable String name) {
+        Set<Appliance> appliances = service.findByName(name);
+        return ResponseEntity.ok().body(appliances);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Appliance> createAppliance(@Valid @RequestBody ApplianceDto request) {
         Appliance appliance = service.add(request);
         return ResponseEntity.ok().body(appliance);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public ResponseEntity<String> deleteAppliance(@Valid @RequestBody ApplianceDto request) {
         service.delete(request);
         return ResponseEntity.ok().body("Appliance was deleted");

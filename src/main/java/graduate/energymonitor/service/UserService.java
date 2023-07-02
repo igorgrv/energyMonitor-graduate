@@ -22,8 +22,8 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User findByName(String name) {
-        return repository.findByName(name).orElseThrow(() -> new NotFoundException("User not found"));
+    public Set<User> findByName(String name) {
+        return repository.findByName(name);
     }
 
     public User add(UserDto request) {

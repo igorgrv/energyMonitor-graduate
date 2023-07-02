@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -27,10 +28,10 @@ public class UserRepository {
         return this.users;
     }
 
-    public Optional<User> findByName(String name) {
+    public Set<User> findByName(String name) {
         return this.users.stream()
                 .filter(user -> user.getName().toLowerCase().equalsIgnoreCase(name.toLowerCase()))
-                .findFirst();
+                .collect(Collectors.toSet());
     }
 
     public User add(User user) {

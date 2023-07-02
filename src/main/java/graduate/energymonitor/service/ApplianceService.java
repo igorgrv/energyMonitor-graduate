@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import graduate.energymonitor.controller.dto.ApplianceDto;
 import graduate.energymonitor.entity.Appliance;
 import graduate.energymonitor.exception.AlreadyExistsException;
-import graduate.energymonitor.exception.NotFoundException;
 import graduate.energymonitor.repository.ApplianceRepository;
 import jakarta.validation.Valid;
 
@@ -23,8 +22,8 @@ public class ApplianceService {
         return repository.findAll();
     }
 
-    public Appliance findByName(String name) {
-        return repository.findByName(name).orElseThrow(() -> new NotFoundException("Appliance not found"));
+    public Set<Appliance> findByName(String name) {
+        return repository.findByName(name);
     }
 
     public Appliance add(@Valid ApplianceDto request) {
@@ -40,8 +39,8 @@ public class ApplianceService {
     }
 
     public void deleteByName(String name) {
-        Appliance appliance = findByName(name);
-        repository.delete(appliance);
+        Set<Appliance> appliances = findByName(name);
+        appliances.forEach(appliance -> repository.delete(appliance));
     }
 
 }

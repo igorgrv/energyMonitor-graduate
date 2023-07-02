@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Past;
 public record UserDto(@NotBlank(message = "name is mandatory") String name,
         @NotNull(message = "birth is mandatory") @DateTimeFormat(pattern = "YYYY-MM-dd") @Past LocalDate birth,
         @NotNull(message = "gender is mandatory") GenderEnum gender,
-        @NotNull(message = "gender is mandatory") RelativesEnum relative) {
+        @NotNull(message = "relative is mandatory") RelativesEnum relative) {
 
     public User toUser() {
         return new User(name, birth, gender, relative);

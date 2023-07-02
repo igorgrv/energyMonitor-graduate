@@ -18,31 +18,31 @@ import graduate.energymonitor.service.LocationService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/location")
+@RequestMapping("/locations")
 public class LocationController {
 
     @Autowired
     private LocationService locationService;
 
-    @GetMapping("/findAll")
+    @GetMapping
     public ResponseEntity<Set<Location>> getAllLocations() {
         Set<Location> locations = locationService.findAll();
         return ResponseEntity.ok().body(locations);
     }
 
-    @GetMapping("/findBy/city/{city}")
-    public ResponseEntity<Location> getLocationByAddress(@PathVariable String city) {
-        Location location = locationService.findByCity(city);
-        return ResponseEntity.ok().body(location);
+    @GetMapping("/{city}")
+    public ResponseEntity<Set<Location>> getLocationByAddress(@PathVariable String city) {
+        Set<Location> locations = locationService.findByCity(city);
+        return ResponseEntity.ok().body(locations);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Location> createLocation(@Valid @RequestBody LocationDto request) {
         Location location = locationService.addLocation(request);
         return ResponseEntity.ok().body(location);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public ResponseEntity<String> deleteLocation(@Valid @RequestBody LocationDto request) {
         locationService.deleteLocation(request);
         return ResponseEntity.ok().body("Location was deleted");

@@ -19,7 +19,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### Find All Locations
 
-* Request: `GET -> {baseUrl}/location/findAll`
+* Request: `GET -> {baseUrl}/locations`
 
 * Input: `N/A`
 
@@ -56,9 +56,9 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### FindBy City
 
-* Request: `GET -> {baseUrl}/location/findBy/city/{city}`
+* Request: `GET -> {baseUrl}/locations/{city}`
 
-* Input: `GET -> {baseUrl}/location/findBy/city/` **`são paulo`**
+* Input: `GET -> {baseUrl}/locations`/ **`são paulo`**
 
 * Output:
 
@@ -77,7 +77,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### Create
 
-* Request: `POST -> {baseUrl}/location/create`
+* Request: `POST -> {baseUrl}/locations`
 
 * Input:
 
@@ -108,7 +108,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### Delete
 
-* Request: `DELETE -> {baseUrl}/location/delete`
+* Request: `DELETE -> {baseUrl}/locations`
 
 * Input:
 
@@ -135,7 +135,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### Find All Locations
 
-* Request: `GET -> {baseUrl}/user/findAll`
+* Request: `GET -> {baseUrl}/users`
 
 * Input: `N/A`
 
@@ -169,9 +169,9 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### FindBy Name
 
-* Request: `GET -> {baseUrl}/user/findBy/name/{name}`
+* Request: `GET -> {baseUrl}/users/{name}`
 
-* Input: `GET -> {baseUrl}/user/findBy/name/` **`joão`**
+* Input: `GET -> {baseUrl}/users`/ **`joão`**
 
 * Output:
 
@@ -189,7 +189,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### Create
 
-* Request: `POST -> {baseUrl}/user/create`
+* Request: `POST -> {baseUrl}/users`
 
 * Input:
 
@@ -218,7 +218,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### Delete
 
-* Request: `DELETE -> {baseUrl}/user/delete`
+* Request: `DELETE -> {baseUrl}/users`
 
 * Input:
 
@@ -244,7 +244,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### Find All Locations
 
-* Request: `GET -> {baseUrl}/appliance/findAll`
+* Request: `GET -> {baseUrl}/appliances`
 
 * Input: `N/A`
 
@@ -275,9 +275,9 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### FindBy Name
 
-* Request: `GET -> {baseUrl}/appliance/findBy/name/{applianceName}`
+* Request: `GET -> {baseUrl}/appliances/{applianceName}`
 
-* Input: `GET -> {baseUrl}/appliance/findBy/name/` **`xbox`**
+* Input: `GET -> {baseUrl}/appliances`/ **`xbox`**
 
 * Output:
 
@@ -294,7 +294,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### Create
 
-* Request: `POST -> {baseUrl}/appliance/create`
+* Request: `POST -> {baseUrl}/appliances`
 
 * Input:
 
@@ -321,7 +321,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### Delete
 
-* Request: `DELETE -> {baseUrl}/appliance/delete`
+* Request: `DELETE -> {baseUrl}/appliances`
 
 * Input:
 

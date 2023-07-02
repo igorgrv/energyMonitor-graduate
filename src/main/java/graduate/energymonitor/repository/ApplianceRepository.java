@@ -2,8 +2,8 @@
 package graduate.energymonitor.repository;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -24,10 +24,10 @@ public class ApplianceRepository {
         return this.appliances;
     }
 
-    public Optional<Appliance> findByName(String name) {
+    public Set<Appliance> findByName(String name) {
         return this.appliances.stream()
                 .filter(appliance -> appliance.getName().toLowerCase().equalsIgnoreCase(name.toLowerCase()))
-                .findFirst();
+                .collect(Collectors.toSet());
     }
 
     public boolean exists(Appliance appliance) {
