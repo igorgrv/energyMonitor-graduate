@@ -94,7 +94,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 * Output: 
 
   * ```json
-    // HTTP 200
+    // HTTP 201
     {
       "address": "Rua 4",
       "number": 1,
@@ -205,7 +205,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 * Output: 
 
   * ```json
-    // HTTP 200
+    // HTTP 201
     {
       "name": "Joao2",
       "birth": "1996-03-08",
@@ -309,7 +309,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 * Output: 
 
   * ```json
-    // HTTP 200
+    // HTTP 201
     {
       "name": "XBOX",
       "model": "Series ONE",
