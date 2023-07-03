@@ -3,6 +3,8 @@ package graduate.energymonitor.service;
 
 import java.util.Set;
 
+import graduate.energymonitor.controller.dto.ApplianceDto;
+import graduate.energymonitor.entity.Appliance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +38,11 @@ public class UserService {
     public void delete(UserDto request) {
         User user = request.toUser();
         repository.delete(user);
+    }
+
+    public boolean findLocation(UserDto request){
+        User user = request.toUser();
+        return repository.exists(user);
     }
 
 }

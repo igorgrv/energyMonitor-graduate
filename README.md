@@ -133,7 +133,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ## User :busts_in_silhouette:
 
-### Find All Locations
+### Find All Users
 
 * Request: `GET -> {baseUrl}/users`
 
@@ -242,7 +242,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ## Appliance :tv:
 
-### Find All Locations
+### Find All Appliances
 
 * Request: `GET -> {baseUrl}/appliances`
 

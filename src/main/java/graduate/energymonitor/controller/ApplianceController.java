@@ -4,6 +4,7 @@ package graduate.energymonitor.controller;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,20 +33,30 @@ public class ApplianceController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<Set<Appliance>> getApplianceByAddress(@PathVariable String name) {
+    public ResponseEntity getApplianceByAddress(@PathVariable String name) {
         Set<Appliance> appliances = service.findByName(name);
+
+        if (appliances.isEmpty()){
+            return ResponseEntity.badRequest().body("Appliance not found");
+        }
+
         return ResponseEntity.ok().body(appliances);
     }
 
     @PostMapping
     public ResponseEntity<Appliance> createAppliance(@Valid @RequestBody ApplianceDto request) {
         Appliance appliance = service.add(request);
-        return ResponseEntity.ok().body(appliance);
+        return ResponseEntity.status(HttpStatus.CREATED).body(appliance);
     }
 
     @DeleteMapping
     public ResponseEntity<String> deleteAppliance(@Valid @RequestBody ApplianceDto request) {
-        service.delete(request);
-        return ResponseEntity.ok().body("Appliance was deleted");
+        if(service.findLocation(request)){
+
+            service.delete(request);
+            return ResponseEntity.ok().body("Appliance was deleted");
+        }
+        return ResponseEntity.badRequest().body("Appliance not found");
+
     }
 }
