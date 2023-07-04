@@ -1,6 +1,8 @@
 # Energy Monitor :battery: :bar_chart:
 Tech Challenge - Graduate/Pós-Graduação
 
+GitHub Repository: https://github.com/igorgrv/energyMonitor-graduate
+
 ## About :book:
 
 Welcome to Energy Monitor! An innovative project that combines the powerful technologies of:
