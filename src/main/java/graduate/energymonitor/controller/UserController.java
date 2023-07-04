@@ -4,6 +4,7 @@ package graduate.energymonitor.controller;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,20 +33,28 @@ public class UserController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<Set<User>> getUserByAddress(@PathVariable String name) {
+    public ResponseEntity getUserByAddress(@PathVariable String name) {
         Set<User> users = service.findByName(name);
+
+        if (users.isEmpty()){
+            return ResponseEntity.badRequest().body("User not found");
+        }
+
         return ResponseEntity.ok().body(users);
     }
 
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDto request) {
         User user = service.add(request);
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @DeleteMapping
     public ResponseEntity<String> deleteUser(@Valid @RequestBody UserDto request) {
-        service.delete(request);
-        return ResponseEntity.ok().body("User was deleted");
+        if(service.findLocation(request)){
+            service.delete(request);
+            return ResponseEntity.ok().body("User was deleted");
+        }
+        return ResponseEntity.badRequest().body("User not found");
     }
 }

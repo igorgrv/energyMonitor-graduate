@@ -36,4 +36,9 @@ public class LocationService {
         repository.deleteLocation(location);
     }
 
+    public boolean findLocation(LocationDto request){
+        Location location = request.toLocation();
+        return repository.exists(location);
+    }
+
 }

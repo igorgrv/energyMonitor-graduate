@@ -3,6 +3,8 @@ package graduate.energymonitor.controller;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,20 +33,29 @@ public class LocationController {
     }
 
     @GetMapping("/{city}")
-    public ResponseEntity<Set<Location>> getLocationByAddress(@PathVariable String city) {
+    public ResponseEntity getLocationByAddress(@PathVariable String city) {
         Set<Location> locations = locationService.findByCity(city);
+
+        if (locations.isEmpty()){
+            return ResponseEntity.badRequest().body("City not found");
+        }
+
         return ResponseEntity.ok().body(locations);
     }
 
     @PostMapping
     public ResponseEntity<Location> createLocation(@Valid @RequestBody LocationDto request) {
         Location location = locationService.addLocation(request);
-        return ResponseEntity.ok().body(location);
+        return ResponseEntity.status(HttpStatus.CREATED).body(location);
     }
 
     @DeleteMapping
     public ResponseEntity<String> deleteLocation(@Valid @RequestBody LocationDto request) {
-        locationService.deleteLocation(request);
-        return ResponseEntity.ok().body("Location was deleted");
+        if(locationService.findLocation(request)){
+            locationService.deleteLocation(request);
+            return ResponseEntity.ok().body("Location was deleted");
+        }
+        return ResponseEntity.badRequest().body("Location not found");
+
     }
 }
