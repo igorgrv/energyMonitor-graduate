@@ -8,10 +8,16 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 *  Java 17;
 * Maven; 
 * Spring Boot;
-* Spring Validation;
+* Spring Validation; 
 * Lombok;
 
-# FASE 1 - inputs/outputs :coffee:
+
+
+## Postman collection
+
+[Pos_tech_-_energyMonitor-graduate.postman_collection.json](Pos_tech_-_energyMonitor-graduate.postman_collection.json) 
+
+# Inputs/outputs :coffee:
 
 * BaseUrl: http://localhost:8080
 
