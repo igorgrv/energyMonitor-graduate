@@ -23,7 +23,8 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ## Challenges
 
-* Finding best practices for a restfull api: https://www.alura.com.br/artigos/rest-principios-e-boas-praticas
+* Finding best practices for a restfull api 
+* Solution: https://www.alura.com.br/artigos/rest-principios-e-boas-praticas
 
 # FASE 1 - inputs/outputs :coffee:
 
