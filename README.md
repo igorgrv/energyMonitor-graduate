@@ -19,8 +19,6 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 [Pos_tech_-_energyMonitor-graduate.postman_collection.json](Pos_tech_-_energyMonitor-graduate.postman_collection.json) 
 
-# Inputs/outputs :coffee:
-
 ## Challenges
 
 * Finding best practices for a restfull api 
