@@ -1,6 +1,8 @@
 # Energy Monitor :battery: :bar_chart:
 Tech Challenge - Graduate/Pós-Graduação
 
+GitHub Repository: https://github.com/igorgrv/energyMonitor-graduate
+
 ## About :book:
 
 Welcome to Energy Monitor! An innovative project that combines the powerful technologies of:
@@ -11,6 +13,13 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 * Spring Validation;
 * Lombok;
 
+
+
+## Postman collection
+
+[Pos_tech_-_energyMonitor-graduate.postman_collection.json](Pos_tech_-_energyMonitor-graduate.postman_collection.json) 
+
+# Inputs/outputs :coffee:
 
 ## Challenges
 
