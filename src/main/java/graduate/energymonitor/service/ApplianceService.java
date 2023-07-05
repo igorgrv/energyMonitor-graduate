@@ -1,10 +1,10 @@
 
 package graduate.energymonitor.service;
 
+import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 
-import graduate.energymonitor.controller.dto.LocationDto;
-import graduate.energymonitor.entity.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,6 @@ import graduate.energymonitor.controller.dto.ApplianceDto;
 import graduate.energymonitor.entity.Appliance;
 import graduate.energymonitor.exception.AlreadyExistsException;
 import graduate.energymonitor.repository.ApplianceRepository;
-import jakarta.validation.Valid;
 
 @Service
 public class ApplianceService {
@@ -24,30 +23,29 @@ public class ApplianceService {
         return repository.findAll();
     }
 
-    public Set<Appliance> findByName(String name) {
-        return repository.findByName(name);
+    public Optional<Appliance> findById(Integer idAppliance) {
+        return repository.findById(idAppliance);
     }
 
-    public Appliance add(@Valid ApplianceDto request) {
+    public Appliance addAppliance(ApplianceDto request) {
         Appliance appliance = request.toAppliance();
+
         if (repository.exists(appliance))
-            throw new AlreadyExistsException(String.format("Appliance %s already exists", appliance));
-        return repository.add(appliance);
+            throw new AlreadyExistsException
+                (String.format("Appliance: name=%s, model=%s, watts=%s,  already exists", appliance.getName()
+                    ,appliance.getModel()
+                    ,appliance.getWatts()));
+
+        appliance.setIdAppliance(new Random().nextInt(Integer.MAX_VALUE));
+        return repository.addAppliance(appliance);
     }
 
-    public void delete(@Valid ApplianceDto request) {
-        Appliance appliance = request.toAppliance();
-        repository.delete(appliance);
+    public void updateAppliance(Appliance appliance, ApplianceDto request) {
+        Appliance applianceUpdated = request.toAppliance();
+        repository.updateAppliance(appliance, applianceUpdated);
     }
 
-    public void deleteByName(String name) {
-        Set<Appliance> appliances = findByName(name);
-        appliances.forEach(appliance -> repository.delete(appliance));
+    public void deleteAppliance(Appliance appliance) {
+        repository.deleteAppliance(appliance);
     }
-
-    public boolean findLocation(ApplianceDto request){
-        Appliance appliance = request.toAppliance();
-        return repository.exists(appliance);
-    }
-
 }

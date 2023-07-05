@@ -32,7 +32,7 @@ public enum BrazilStatesEnum {
 
     private String state;
 
-    private BrazilStatesEnum(String state) {
+    BrazilStatesEnum(String state) {
         this.state = state;
     }
 
