@@ -7,10 +7,10 @@ GitHub Repository: https://github.com/igorgrv/energyMonitor-graduate
 
 Welcome to Energy Monitor! An innovative project that combines the powerful technologies of:
 
-*  Java 17;
+* Java 17;
 * Maven; 
 * Spring Boot;
-* Spring Validation; 
+* Spring Validation;
 * Lombok;
 
 
@@ -19,7 +19,12 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 [Pos_tech_-_energyMonitor-graduate.postman_collection.json](Pos_tech_-_energyMonitor-graduate.postman_collection.json) 
 
-# Inputs/outputs :coffee:
+## Challenges
+
+* Finding best practices for a restfull api 
+* Solution: https://www.alura.com.br/artigos/rest-principios-e-boas-praticas
+
+# FASE 1 - inputs/outputs :coffee:
 
 * BaseUrl: http://localhost:8080
 
@@ -36,48 +41,60 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
   * ```json
     // HTTP 200
     [
-      {
-        "address": "Rua 2",
-        "number": 2,
-        "neighborhood": "Ipanema",
-        "city": "Rio de Janeiro",
-        "state": "Rio de Janeiro"
-      },
-      {
-        "address": "Rua 3",
-        "number": 3,
-        "neighborhood": "Camanducaia",
-        "city": "Belo Horizonte",
-        "state": "Minas Gerais"
-      },
-      {
-        "address": "Rua 1",
-        "number": 1,
-        "neighborhood": "Vila Olímpia",
-        "city": "São Paulo",
-        "state": "São Paulo"
-      }
+    {
+      "idLocation": 1,
+      "address": "Rua 1",
+      "number": 1,
+      "neighborhood": "Vila Olímpia",
+      "city": "São Paulo",
+      "state": "SP"
+    },
+    {
+      "idLocation": 2,
+      "address": "Rua 1.1",
+      "number": 1,
+      "neighborhood": "Pirituba",
+      "city": "São Paulo",
+      "state": "SP"
+    },
+    {
+      "idLocation": 3,
+      "address": "Rua 2",
+      "number": 2,
+      "neighborhood": "Ipanema",
+      "city": "Rio de Janeiro",
+      "state": "RJ"
+    },
+    {
+      "idLocation": 4,
+      "address": "Rua 3",
+      "number": 3,
+      "neighborhood": "Camanducaia",
+      "city": "Belo Horizonte",
+      "state": "MG"
+    }
     ]
     ```
 
 
 
-### FindBy City
+### FindBy Id
 
-* Request: `GET -> {baseUrl}/locations/{city}`
+* Request: `GET -> {baseUrl}/locations/{id_location}`
 
-* Input: `GET -> {baseUrl}/locations`/ **`são paulo`**
+* Input: `GET -> {baseUrl}/locations`/ 1
 
 * Output:
 
   * ```json
     // HTTP 200
     {
+      "idLocation": 1,
       "address": "Rua 1",
       "number": 1,
       "neighborhood": "Vila Olímpia",
       "city": "São Paulo",
-      "state": "São Paulo"
+      "state": "SP"
     }
     ```
 
@@ -104,11 +121,43 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
   * ```json
     // HTTP 201
     {
+      "idLocation": 1151439646,
       "address": "Rua 4",
       "number": 1,
       "neighborhood": "Vila Olímpia",
       "city": "São Paulo",
-      "state": "São Paulo"
+      "state": "SP"
+    }
+    ```
+
+
+
+### UpdateBy Id
+
+* Request: `PUT -> {baseUrl}/locations/{id_location}`
+
+* Input: `PUT -> {baseUrl}/locations`/ 3
+
+  * ```json
+    {
+      "address": "Rua 10",
+      "number": 1,
+      "neighborhood": "Vila Olímpia",
+      "city": "São Paulo",
+      "state": "SP"
+    }
+    ```
+
+* Output:
+
+  * ```json
+    // HTTP 200
+    {
+      "address": "Rua 10",
+      "number": 1,
+      "neighborhood": "Vila Olímpia",
+      "city": "São Paulo",
+      "state": "SP"
     }
     ```
 
@@ -116,19 +165,9 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ### Delete
 
-* Request: `DELETE -> {baseUrl}/locations`
+* Request: `DELETE -> {baseUrl}/locations/{id_location}`
 
-* Input:
-
-  * ```json
-    {
-        "address": "Rua 1",
-        "number": 1,
-        "neighborhood": "Vila Olímpia",
-        "city": "São Paulo",
-        "state": "SP"
-     }
-    ```
+* Input: `DELETE -> {baseUrl}/locations`/ 3
 
 * Output:
 
@@ -152,40 +191,45 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
   * ```json
     // HTTP 200
     [
+
       {
-        "name": "Vlad",
-        "birth": "1986-03-08",
-        "gender": "MALE",
-        "relative": "SON"
-      },
-      {
+        "idUser": 1,
         "name": "Joao",
         "birth": "1996-03-08",
         "gender": "MALE",
         "relative": "FATHER"
       },
       {
+        "idUser": 2,
         "name": "Maria",
         "birth": "1996-03-08",
         "gender": "FEMALE",
         "relative": "MOTHER"
+      },
+      {
+        "idUser": 3,
+        "name": "Vlad",
+        "birth": "1986-03-08",
+        "gender": "MALE",
+        "relative": "SON"
       }
     ]
     ```
 
 
 
-### FindBy Name
+### FindBy Id
 
-* Request: `GET -> {baseUrl}/users/{name}`
+* Request: `GET -> {baseUrl}/users/{id_user}`
 
-* Input: `GET -> {baseUrl}/users`/ **`joão`**
+* Input: `GET -> {baseUrl}/users`/ 1
 
 * Output:
 
   * ```json
     // HTTP 200
     {
+      "idUser": 1,
       "name": "Joao",
       "birth": "1996-03-08",
       "gender": "MALE",
@@ -215,6 +259,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
   * ```json
     // HTTP 201
     {
+      "idUser": 1828481121,
       "name": "Joao2",
       "birth": "1996-03-08",
       "gender": "MALE",
@@ -224,20 +269,39 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 
 
+### UpdateBy Id
+
+* Request: `PUT -> {baseUrl}/users/{id_user}`
+
+* Input: `PUT -> {baseUrl}/users`/ 3
+
+* ```json
+    {
+      "name": "Gustavo",
+      "birth": "1992-02-02",
+      "gender": "MALE",
+      "relative": "SON"
+    }
+  ```
+
+* Output:
+
+* ```json
+  // HTTP 200
+    {
+      "name": "Gustavo",
+      "birth": "1992-02-02",
+      "gender": "MALE",
+      "relative": "SON"
+    }
+  ```
+
+
 ### Delete
 
-* Request: `DELETE -> {baseUrl}/users`
+* Request: `DELETE -> {baseUrl}/users/{id_user}`
 
-* Input:
-
-  * ```json
-    {
-      "name": "Joao",
-      "birth": "1996-03-08",
-      "gender": "MALE",
-      "relative": "FATHER"
-    }
-    ```
+* Input: `DELETE -> {baseUrl}/users`/ 3
 
 * Output:
 
@@ -261,39 +325,43 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
   * ```json
     // HTTP 200
     [
-      {
-        "name": "XBOX",
-        "model": "Series X",
-        "watts": 100
-      },
-      {
-        "name": "Playstation",
-        "model": "Verison 5",
-        "watts": 100
-      },
-      {
-        "name": "TV",
-        "model": "Samsung QN85A",
-        "watts": 100
-      }
+    {
+      "idAppliance": 1,
+      "name": "TV",
+      "model": "Samsung QN85A",
+      "watts": 100
+    },
+    {
+      "idAppliance": 2,
+      "name": "XBOX",
+      "model": "Series X",
+      "watts": 100
+    },
+    {
+      "idAppliance": 3,
+      "name": "Playstation",
+      "model": "Verison 5",
+      "watts": 100
+    }
     ]
     ```
 
 
 
-### FindBy Name
+### FindBy Id
 
-* Request: `GET -> {baseUrl}/appliances/{applianceName}`
+* Request: `GET -> {baseUrl}/appliances/{id_appliance}`
 
-* Input: `GET -> {baseUrl}/appliances`/ **`xbox`**
+* Input: `GET -> {baseUrl}/appliances`/ 3
 
 * Output:
 
   * ```json
     // HTTP 200
     {
-      "name": "XBOX",
-      "model": "Series X",
+      "idAppliance": 3,
+      "name": "Playstation",
+      "model": "Verison 5",
       "watts": 100
     }
     ```
@@ -319,27 +387,46 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
   * ```json
     // HTTP 201
     {
+      "idAppliance": 340550821,
       "name": "XBOX",
       "model": "Series ONE",
       "watts": 100
     }
     ```
 
+
+
+### UpdateBy Id
+
+* Request: `PUT -> {baseUrl}/appliances/{id_appliance}`
+
+* Input: `PUT -> {baseUrl}/appliances`/ 3
+
+* ```json
+    {
+      "name": "XBOX",
+      "model": "Series X",
+      "watts": 100
+    }
+  ```
+
+* Output:
+
+* ```json
+  // HTTP 200
+    {
+      "name": "XBOX",
+      "model": "Series X",
+      "watts": 100
+    }
+  ```
 
 
 ### Delete
 
-* Request: `DELETE -> {baseUrl}/appliances`
+* Request: `DELETE -> {baseUrl}/appliances/{id_appliance}`
 
-* Input:
-
-  * ```json
-    {
-      "name": "XBOX",
-      "model": "Series ONE",
-      "watts": 100
-    }
-    ```
+* Input: `PUT -> {baseUrl}/appliances`/ 3
 
 * Output:
 

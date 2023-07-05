@@ -1,10 +1,14 @@
 
 package graduate.energymonitor.service;
 
+import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 
 import graduate.energymonitor.controller.dto.ApplianceDto;
+import graduate.energymonitor.controller.dto.LocationDto;
 import graduate.energymonitor.entity.Appliance;
+import graduate.energymonitor.entity.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,25 +28,31 @@ public class UserService {
         return repository.findAll();
     }
 
-    public Set<User> findByName(String name) {
-        return repository.findByName(name);
+    public Optional<User> findById(Integer idUser) {
+        return repository.findById(idUser);
     }
 
-    public User add(UserDto request) {
+    public User addUser(UserDto request) {
         User user = request.toUser();
+
         if (repository.exists(user))
-            throw new AlreadyExistsException(String.format("User %s already exists", user));
-        return repository.add(user);
+            throw new AlreadyExistsException
+                (String.format("User: user=%s, birth=%s, gender=%s, relative=%s,  already exists", user.getName()
+                    ,user.getBirth()
+                    ,user.getGender()
+                    ,user.getRelative()));
+
+        user.setIdUser(new Random().nextInt(Integer.MAX_VALUE));
+        return repository.addUser(user);
     }
 
-    public void delete(UserDto request) {
-        User user = request.toUser();
-        repository.delete(user);
+    public void deleteUser(User user) {
+        repository.deleteUser(user);
     }
 
-    public boolean findLocation(UserDto request){
-        User user = request.toUser();
-        return repository.exists(user);
+    public void updateUser(User user, UserDto request) {
+        User userUpdated = request.toUser();
+        repository.updateUser(user, userUpdated);
     }
 
 }

@@ -29,12 +29,12 @@
 					"response": []
 				},
 				{
-					"name": "/locations/{city}",
+					"name": "/locations/{id_location}",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/locations/são paulo",
+							"raw": "http://localhost:8080/locations/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -42,7 +42,7 @@
 							"port": "8080",
 							"path": [
 								"locations",
-								"são paulo"
+								"1"
 							]
 						}
 					},
@@ -77,13 +77,13 @@
 					"response": []
 				},
 				{
-					"name": "/locations",
+					"name": "/locations/{id_location}",
 					"request": {
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"address\": \"Diogo Vaz\",\r\n  \"number\": 141,\r\n  \"neighborhood\": \"Cambuci\",\r\n  \"city\": \"São Paulo\",\r\n  \"state\": \"SP\"\r\n}",
+							"raw": "{\r\n    \"address\": \"Rua 1\",\r\n    \"number\": 1,\r\n    \"neighborhood\": \"Aclimação\",\r\n    \"city\": \"São Paulo\",\r\n    \"state\": \"SP\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -91,14 +91,35 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/locations",
+							"raw": "http://localhost:8080/locations/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"locations"
+								"locations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/locations/{id_location}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/locations/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"locations",
+								"1"
 							]
 						}
 					},
@@ -129,12 +150,12 @@
 					"response": []
 				},
 				{
-					"name": "/users/{name}",
+					"name": "/users/{id_user}",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/Maria",
+							"raw": "http://localhost:8080/users/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -142,7 +163,7 @@
 							"port": "8080",
 							"path": [
 								"users",
-								"Maria"
+								"1"
 							]
 						}
 					},
@@ -155,7 +176,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Joao2\",\r\n  \"birth\": \"1996-03-08\",\r\n  \"gender\": \"MALE\",\r\n  \"relative\": \"SON\"\r\n}",
+							"raw": "{\r\n  \"name\": \"Fernando\",\r\n  \"birth\": \"1997-02-08\",\r\n  \"gender\": \"MALE\",\r\n  \"relative\": \"FATHER\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -177,13 +198,13 @@
 					"response": []
 				},
 				{
-					"name": "/users",
+					"name": "/users/{id_user}",
 					"request": {
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Joao2\",\r\n  \"birth\": \"1996-03-08\",\r\n  \"gender\": \"MALE\",\r\n  \"relative\": \"SON\"\r\n}",
+							"raw": "{\r\n  \"name\": \"Gustavo\",\r\n  \"birth\": \"1993-01-19\",\r\n  \"gender\": \"MALE\",\r\n  \"relative\": \"SON\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -191,14 +212,35 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/users",
+							"raw": "http://localhost:8080/users/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"users"
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id_user}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"2"
 							]
 						}
 					},
@@ -229,12 +271,12 @@
 					"response": []
 				},
 				{
-					"name": "/appliances/{applianceName}",
+					"name": "/appliances/{id_appliance}",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/appliances/XBOX",
+							"raw": "http://localhost:8080/appliances/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -242,7 +284,7 @@
 							"port": "8080",
 							"path": [
 								"appliances",
-								"XBOX"
+								"3"
 							]
 						}
 					},
@@ -255,7 +297,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"XBOX\",\r\n  \"model\": \"Series ONE\",\r\n  \"watts\": 100\r\n}",
+							"raw": "{\r\n  \"name\": \"XBOX\",\r\n  \"model\": \"Series X\",\r\n  \"watts\": 200\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -277,13 +319,13 @@
 					"response": []
 				},
 				{
-					"name": "/appliances",
+					"name": "/appliances/{id_appliance}",
 					"request": {
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"XBOX\",\r\n  \"model\": \"Series ONE\",\r\n  \"watts\": 100\r\n}",
+							"raw": "{\r\n  \"name\": \"XBOX\",\r\n  \"model\": \"Series X\",\r\n  \"watts\": 100\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -291,14 +333,35 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/appliances",
+							"raw": "http://localhost:8080/appliances/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"appliances"
+								"appliances",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/appliances/{id_appliance}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/appliances/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"appliances",
+								"3"
 							]
 						}
 					},

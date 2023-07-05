@@ -1,18 +1,13 @@
 
 package graduate.energymonitor.controller;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import graduate.energymonitor.controller.dto.UserDto;
 import graduate.energymonitor.entity.User;
@@ -24,17 +19,17 @@ import jakarta.validation.Valid;
 public class UserController {
 
     @Autowired
-    private UserService service;
+    private UserService userService;
 
     @GetMapping
     public ResponseEntity<Set<User>> getAllUsers() {
-        Set<User> users = service.findAll();
+        Set<User> users = userService.findAll();
         return ResponseEntity.ok().body(users);
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity getUserByAddress(@PathVariable String name) {
-        Set<User> users = service.findByName(name);
+    @GetMapping("/{id_user}")
+    public ResponseEntity getUserById(@PathVariable("id_user") Integer idUser) {
+        Optional<User> users = userService.findById(idUser);
 
         if (users.isEmpty()){
             return ResponseEntity.badRequest().body("User not found");
@@ -45,16 +40,33 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDto request) {
-        User user = service.add(request);
+        User user = userService.addUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteUser(@Valid @RequestBody UserDto request) {
-        if(service.findLocation(request)){
-            service.delete(request);
-            return ResponseEntity.ok().body("User was deleted");
+    @PutMapping("/{id_user}")
+    public ResponseEntity updateUser(@PathVariable("id_user") Integer idUser, @Valid @RequestBody UserDto request) {
+
+        Optional<User> user = userService.findById(idUser);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.badRequest().body("User not found");
         }
-        return ResponseEntity.badRequest().body("User not found");
+
+        userService.updateUser(user.get(), request);
+
+        return ResponseEntity.ok().body(request);
+
+    }
+
+    @DeleteMapping("/{id_user}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id_user") Integer idUser) {
+        Optional<User> user = userService.findById(idUser);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.badRequest().body("User not found");
+        }
+        userService.deleteUser(user.get());
+        return ResponseEntity.ok().body("User was deleted");
     }
 }

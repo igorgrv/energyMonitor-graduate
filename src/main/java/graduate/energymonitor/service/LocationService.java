@@ -1,5 +1,7 @@
 package graduate.energymonitor.service;
 
+import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +22,32 @@ public class LocationService {
         return repository.findAll();
     }
 
-    public Set<Location> findByCity(String city) {
-        return repository.findByCity(city);
+    public Optional<Location> findById(Integer idLocation) {
+        return repository.findById(idLocation);
     }
 
     public Location addLocation(LocationDto request) {
         Location location = request.toLocation();
+
         if (repository.exists(location))
-            throw new AlreadyExistsException(String.format("Location %s already exists", location));
+            throw new AlreadyExistsException
+                (String.format("Location: address=%s, number=%s, neighborhood=%s, city=%s, state=%s,  already exists", location.getAddress()
+                ,location.getNumber()
+                ,location.getNeighborhood()
+                ,location.getCity()
+                ,location.getState()));
+
+        location.setIdLocation(new Random().nextInt(Integer.MAX_VALUE));
         return repository.addLocation(location);
     }
 
-    public void deleteLocation(LocationDto request) {
-        Location location = request.toLocation();
-        repository.deleteLocation(location);
+    public void updateLocation(Location location, LocationDto request) {
+        Location locationUpdated = request.toLocation();
+        repository.updateLocation(location, locationUpdated);
     }
 
-    public boolean findLocation(LocationDto request){
-        Location location = request.toLocation();
-        return repository.exists(location);
+    public void deleteLocation(Location location) {
+        repository.deleteLocation(location);
     }
 
 }
