@@ -1,15 +1,16 @@
 
 package graduate.energymonitor.service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
 import graduate.energymonitor.controller.dto.UserDto;
 import graduate.energymonitor.entity.User;
 import graduate.energymonitor.exception.AlreadyExistsException;
+import graduate.energymonitor.exception.NotFoundException;
 import graduate.energymonitor.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -18,36 +19,39 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
     private final UserRepository repository;
+    private static final String USER_NOT_FOUND = "User not found";
 
-    public Set<User> findAll() {
+    public List<User> findAll() {
         return repository.findAll();
     }
 
-    public Optional<User> findById(Integer idUser) {
-        return repository.findById(idUser);
+    public Optional<User> findById(UUID id) {
+        return repository.findById(id);
     }
 
     public User addUser(UserDto request) {
         User user = request.toUser();
 
-        if (repository.exists(user))
-            throw new AlreadyExistsException
-                (String.format("User: user=%s, birth=%s, gender=%s, relative=%s,  already exists", user.getName()
-                    ,user.getBirth()
-                    ,user.getGender()
-                    ,user.getRelative()));
+        if (repository.existsByCpf(user.getCpf()))
+            throw new AlreadyExistsException(
+                    String.format("User: cpf=%s, user=%s, birth=%s, gender=%s, relative=%s,  already exists",
+                            user.getCpf(), user.getName(), user.getBirth(), user.getGender(), user.getRelative()));
 
-        user.setIdUser(new Random().nextInt(Integer.MAX_VALUE));
-        return repository.addUser(user);
+        return repository.save(user);
     }
 
-    public void deleteUser(User user) {
-        repository.deleteUser(user);
+    public User deleteUser(UUID id) {
+        User user = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        repository.delete(user);
+        return user;
     }
 
-    public void updateUser(User user, UserDto request) {
-        User userUpdated = request.toUser();
-        repository.updateUser(user, userUpdated);
+    public User updateUser(UUID id, UserDto updatedUserDto) {
+
+        User existingUser = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        User updatedUser = updatedUserDto.returnEntityUpdated(existingUser);
+
+        return repository.save(updatedUser);
     }
 
 }

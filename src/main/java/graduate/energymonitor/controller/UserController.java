@@ -1,7 +1,8 @@
 
 package graduate.energymonitor.controller;
 
-import java.util.Set;
+import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,34 +49,34 @@ public class UserController {
     @Operation(summary = "Get all the users", description = "Method for getting all the users")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(examples = {
-                    @ExampleObject(summary = "Get all the users", value = "[{\"idUser\":1,\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"},{\"idUser\":2,\"name\":\"Maria\",\"birth\":\"1996-03-08\",\"gender\":\"FEMALE\",\"relative\":\"MOTHER\"},{\"idUser\":3,\"name\":\"Vlad\",\"birth\":\"1986-03-08\",\"gender\":\"MALE\",\"relative\":\"SON\"}]")
+                    @ExampleObject(summary = "Get all the users", value = "[{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"},{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Maria\",\"birth\":\"1996-03-08\",\"gender\":\"FEMALE\",\"relative\":\"MOTHER\"},{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Vlad\",\"birth\":\"1986-03-08\",\"gender\":\"MALE\",\"relative\":\"SON\"}]")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
-    public ResponseEntity<Set<User>> getAllUsers() {
-        Set<User> users = userService.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.findAll();
         return ResponseEntity.ok().body(users);
     }
 
     @Operation(summary = "Get a user by ID", description = "Method to get a user based on the ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(examples = {
-                    @ExampleObject(summary = "Get the user by ID", value = "{\"idUser\":1,\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
+                    @ExampleObject(summary = "Get the user by ID", value = "{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "404", description = "NOT FOUND - User Id not Found", content = @Content(examples = {
                     @ExampleObject(summary = "User ID not found", value = "{\"statusCode\":404,\"message\":\"User ID not found\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping("/{id_user}")
-    public ResponseEntity<Object> getUserById(@PathVariable("id_user") Integer idUser) {
-        User user = userService.findById(idUser).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+    public ResponseEntity<User> getUserById(@PathVariable("id_user") UUID id) {
+        User user = userService.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         return ResponseEntity.ok().body(user);
     }
 
     @Operation(summary = "Create a user", description = "Method to crete a new user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "SUCCESS - User successfully created", content = @Content(examples = {
-                    @ExampleObject(summary = "User successfully created", value = "{\"idUser\":1,\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
+                    @ExampleObject(summary = "User successfully created", value = "{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "404", description = "NOT FOUND - User Id not Found", content = @Content(examples = {
                     @ExampleObject(summary = "User ID not found", value = "{\"statusCode\":404,\"message\":\"User ID not found\"}")
@@ -93,34 +94,30 @@ public class UserController {
     @Operation(summary = "Update a user", description = "Method to update an existing user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully updated", content = @Content(examples = {
-                    @ExampleObject(summary = "User successfully updated", value = "{\"idUser\":1,\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
+                    @ExampleObject(summary = "User successfully updated", value = "{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "404", description = "NOT FOUND - User Id not Found", content = @Content(examples = {
                     @ExampleObject(summary = "User ID not found", value = "{\"statusCode\":404,\"message\":\"User ID not found\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @PutMapping("/{id_user}")
-    public ResponseEntity<Object> updateUser(@PathVariable("id_user") Integer idUser,
-            @Valid @RequestBody UserDto request) {
-
-        User user = userService.findById(idUser).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-        userService.updateUser(user, request);
-
-        return ResponseEntity.ok().body(request);
-
+    public ResponseEntity<User> updateUser(@PathVariable("id_user") UUID id, @Valid @RequestBody UserDto request) {
+        User updatedUser = userService.updateUser(id, request);
+        return ResponseEntity.ok().body(updatedUser);
     }
 
     @Operation(summary = "Delete a user", description = "Method to delete an existing user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully deleted", content = @Content(mediaType = MediaType.TEXT_PLAIN_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully deleted", content = @Content(examples = {
+                    @ExampleObject(summary = "User successfully deleted", value = "{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
+            }, mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "404", description = "NOT FOUND - User Id not Found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, examples = {
                     @ExampleObject(summary = "User ID not found", value = "{\"statusCode\":404,\"message\":\"User ID not found\"}")
             }))
     })
     @DeleteMapping("/{id_user}")
-    public ResponseEntity<String> deleteUser(@PathVariable("id_user") Integer idUser) {
-        User user = userService.findById(idUser).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-        userService.deleteUser(user);
-        return ResponseEntity.ok().body("User was deleted");
+    public ResponseEntity<User> deleteUser(@PathVariable("id_user") UUID id) {
+        User deletedUser = userService.deleteUser(id);
+        return ResponseEntity.ok().body(deletedUser);
     }
 }
