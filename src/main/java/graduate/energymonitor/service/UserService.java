@@ -5,24 +5,19 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import graduate.energymonitor.controller.dto.ApplianceDto;
-import graduate.energymonitor.controller.dto.LocationDto;
-import graduate.energymonitor.entity.Appliance;
-import graduate.energymonitor.entity.Location;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import graduate.energymonitor.controller.dto.UserDto;
 import graduate.energymonitor.entity.User;
 import graduate.energymonitor.exception.AlreadyExistsException;
-import graduate.energymonitor.exception.NotFoundException;
 import graduate.energymonitor.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
 
     public Set<User> findAll() {
         return repository.findAll();
