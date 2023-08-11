@@ -23,6 +23,7 @@ import graduate.energymonitor.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,9 +49,7 @@ public class UserController {
 
     @Operation(summary = "Get all the users", description = "Method for getting all the users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(examples = {
-                    @ExampleObject(summary = "Get all the users", value = "[{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"},{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Maria\",\"birth\":\"1996-03-08\",\"gender\":\"FEMALE\",\"relative\":\"MOTHER\"},{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Vlad\",\"birth\":\"1986-03-08\",\"gender\":\"MALE\",\"relative\":\"SON\"}]")
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Users", content = @Content(schema = @Schema(implementation = UserDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
@@ -60,9 +59,7 @@ public class UserController {
 
     @Operation(summary = "Get a user by ID", description = "Method to get a user based on the ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(examples = {
-                    @ExampleObject(summary = "Get the user by ID", value = "{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = UserDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "404", description = "NOT FOUND - User Id not Found", content = @Content(examples = {
                     @ExampleObject(summary = "User ID not found", value = "{\"statusCode\":404,\"message\":\"User ID not found\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))
@@ -75,9 +72,7 @@ public class UserController {
 
     @Operation(summary = "Create a user", description = "Method to crete a new user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "SUCCESS - User successfully created", content = @Content(examples = {
-                    @ExampleObject(summary = "User successfully created", value = "{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully created", content = @Content(schema = @Schema(implementation = User.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "404", description = "NOT FOUND - User Id not Found", content = @Content(examples = {
                     @ExampleObject(summary = "User ID not found", value = "{\"statusCode\":404,\"message\":\"User ID not found\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE)),
@@ -93,9 +88,7 @@ public class UserController {
 
     @Operation(summary = "Update a user", description = "Method to update an existing user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully updated", content = @Content(examples = {
-                    @ExampleObject(summary = "User successfully updated", value = "{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully updated", content = @Content(schema = @Schema(implementation = User.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "404", description = "NOT FOUND - User Id not Found", content = @Content(examples = {
                     @ExampleObject(summary = "User ID not found", value = "{\"statusCode\":404,\"message\":\"User ID not found\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))
@@ -108,9 +101,7 @@ public class UserController {
 
     @Operation(summary = "Delete a user", description = "Method to delete an existing user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully deleted", content = @Content(examples = {
-                    @ExampleObject(summary = "User successfully deleted", value = "{\"idUser\":\"5ed71cf4-d013-4fe4-805d-4ad13f9f3b77\",\"cpf\":\"009.117.190-32\",\"name\":\"Joao\",\"birth\":\"1996-03-08\",\"gender\":\"MALE\",\"relative\":\"FATHER\"}")
-            }, mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully deleted", content = @Content(schema = @Schema(implementation = User.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "404", description = "NOT FOUND - User Id not Found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, examples = {
                     @ExampleObject(summary = "User ID not found", value = "{\"statusCode\":404,\"message\":\"User ID not found\"}")
             }))
