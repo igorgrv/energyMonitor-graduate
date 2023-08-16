@@ -12,6 +12,7 @@ import graduate.energymonitor.entity.User;
 import graduate.energymonitor.exception.AlreadyExistsException;
 import graduate.energymonitor.exception.NotFoundException;
 import graduate.energymonitor.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -40,12 +41,14 @@ public class UserService {
         return repository.save(user);
     }
 
+    @Transactional
     public User deleteUser(UUID id) {
         User user = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         repository.delete(user);
         return user;
     }
 
+    @Transactional
     public User updateUser(UUID id, UserDto updatedUserDto) {
 
         User existingUser = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));

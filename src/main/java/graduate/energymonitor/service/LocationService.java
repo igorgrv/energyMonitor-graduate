@@ -1,53 +1,52 @@
 package graduate.energymonitor.service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import graduate.energymonitor.controller.dto.LocationDto;
 import graduate.energymonitor.entity.Location;
-import graduate.energymonitor.exception.AlreadyExistsException;
+import graduate.energymonitor.exception.NotFoundException;
 import graduate.energymonitor.repository.LocationRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class LocationService {
 
-    @Autowired
-    private LocationRepository repository;
+    private final LocationRepository repository;
+    private static final String LOCATION_NOT_FOUND = "Location not found";
 
-    public Set<Location> findAll() {
+    public List<Location> findAll() {
         return repository.findAll();
     }
 
-    public Optional<Location> findById(Integer idLocation) {
-        return repository.findById(idLocation);
+    public Optional<Location> findById(UUID id) {
+        return repository.findById(id);
     }
 
     public Location addLocation(LocationDto request) {
         Location location = request.toLocation();
-
-        if (repository.exists(location))
-            throw new AlreadyExistsException
-                (String.format("Location: address=%s, number=%s, neighborhood=%s, city=%s, state=%s,  already exists", location.getAddress()
-                ,location.getNumber()
-                ,location.getNeighborhood()
-                ,location.getCity()
-                ,location.getState()));
-
-        location.setIdLocation(new Random().nextInt(Integer.MAX_VALUE));
-        return repository.addLocation(location);
+        return repository.save(location);
     }
 
-    public void updateLocation(Location location, LocationDto request) {
-        Location locationUpdated = request.toLocation();
-        repository.updateLocation(location, locationUpdated);
+    @Transactional
+    public Location deleteLocation(UUID id) {
+        Location location = findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
+        repository.delete(location);
+        return location;
     }
 
-    public void deleteLocation(Location location) {
-        repository.deleteLocation(location);
+    @Transactional
+    public Location updateLocation(UUID id, LocationDto updatedLocationDto) {
+
+        Location location = findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
+        Location updatedUser = updatedLocationDto.returnEntityUpdated(location);
+
+        return repository.save(updatedUser);
     }
 
 }
