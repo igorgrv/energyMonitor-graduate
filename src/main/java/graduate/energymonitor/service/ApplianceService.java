@@ -1,51 +1,53 @@
 
 package graduate.energymonitor.service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import graduate.energymonitor.controller.dto.ApplianceDto;
 import graduate.energymonitor.entity.Appliance;
-import graduate.energymonitor.exception.AlreadyExistsException;
+import graduate.energymonitor.exception.NotFoundException;
 import graduate.energymonitor.repository.ApplianceRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class ApplianceService {
 
-    @Autowired
-    private ApplianceRepository repository;
+    private final ApplianceRepository repository;
+    private static final String APPLIANCE_NOT_FOUND = "Appliance not found";
 
-    public Set<Appliance> findAll() {
+    public List<Appliance> findAll() {
         return repository.findAll();
     }
 
-    public Optional<Appliance> findById(Integer idAppliance) {
-        return repository.findById(idAppliance);
+    public Optional<Appliance> findById(UUID id) {
+        return repository.findById(id);
     }
 
     public Appliance addAppliance(ApplianceDto request) {
         Appliance appliance = request.toAppliance();
-
-        if (repository.exists(appliance))
-            throw new AlreadyExistsException
-                (String.format("Appliance: name=%s, model=%s, watts=%s,  already exists", appliance.getName()
-                    ,appliance.getModel()
-                    ,appliance.getWatts()));
-
-        appliance.setIdAppliance(new Random().nextInt(Integer.MAX_VALUE));
-        return repository.addAppliance(appliance);
+        return repository.save(appliance);
     }
 
-    public void updateAppliance(Appliance appliance, ApplianceDto request) {
-        Appliance applianceUpdated = request.toAppliance();
-        repository.updateAppliance(appliance, applianceUpdated);
+    @Transactional
+    public Appliance deleteAppliance(UUID id) {
+        Appliance appliance = findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
+        repository.delete(appliance);
+        return appliance;
     }
 
-    public void deleteAppliance(Appliance appliance) {
-        repository.deleteAppliance(appliance);
+    @Transactional
+    public Appliance updateAppliance(UUID id, ApplianceDto updatedApplianceDto) {
+
+        Appliance appliance = findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
+        Appliance updatedUser = updatedApplianceDto.returnEntityUpdated(appliance);
+
+        return repository.save(updatedUser);
     }
+
 }

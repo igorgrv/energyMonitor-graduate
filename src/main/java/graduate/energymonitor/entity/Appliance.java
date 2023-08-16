@@ -1,29 +1,47 @@
 package graduate.energymonitor.entity;
 
-import lombok.*;
+import java.util.UUID;
 
-@Getter
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
 @EqualsAndHashCode
 @AllArgsConstructor
-@ToString
+@NoArgsConstructor
+@Table(name = "appliance")
+@Entity
 public class Appliance {
 
-    @Setter
-    private Integer idAppliance;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
+
+    @Column(name = "model", nullable = false, length = 50)
     private String model;
+
+    @Column(name = "brand", nullable = false, length = 50)
+    private String brand;
+
+    @Column(name = "watts", nullable = false)
     private Integer watts;
 
-    public Appliance(String name, String model,Integer watts ){
+    public Appliance(String name, String model, String brand, Integer watts) {
         this.name = name;
         this.model = model;
+        this.brand = brand;
         this.watts = watts;
-    }
-
-    public boolean identifyBy(String name, String model,Integer watts ){
-        return this.name.equals(name)
-            && this.model.equals(model)
-            && this.watts.equals(watts);
     }
 
 }

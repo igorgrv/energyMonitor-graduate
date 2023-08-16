@@ -2,6 +2,7 @@
 Tech Challenge - Graduate/Pós-Graduação
 
 GitHub Repository: https://github.com/igorgrv/energyMonitor-graduate
+Swagger: http://localhost:8080/swagger-ui/index.html
 
 ## About :book:
 
