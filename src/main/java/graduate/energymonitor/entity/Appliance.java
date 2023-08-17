@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "appliance")
+@Table(name = "APPLIANCES")
 @Entity
 public class Appliance {
 

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-@Schema(title = "Appliance", description = "Object that represents a data transfer object for an appliance")
+@Schema(title = "ApplianceDTO", description = "Object that represents a data transfer object for an appliance")
 public record ApplianceDto(
     
     @Schema(description = "Name to identify the appliance", example = "XBOX")

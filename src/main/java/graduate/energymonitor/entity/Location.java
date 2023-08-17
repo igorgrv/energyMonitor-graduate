@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "location")
+@Table(name = "LOCATIONS")
 @Entity
 public class Location {
 
