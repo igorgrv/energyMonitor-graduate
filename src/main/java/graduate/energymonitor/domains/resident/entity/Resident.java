@@ -16,15 +16,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "RESIDENT")
 @Entity
 public class Resident {
@@ -50,8 +46,22 @@ public class Resident {
     private RelativesEnum relative;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public Resident() {
+    }
+
+    public Resident(Long id, String cpf, String name, LocalDate birth, GenderEnum gender, RelativesEnum relative,
+            User user) {
+        this.id = id;
+        this.cpf = cpf;
+        this.name = name;
+        this.birth = birth;
+        this.gender = gender;
+        this.relative = relative;
+        this.user = user;
+    }
 
     public Resident(ResidentUserRequest dto) {
         this.cpf = dto.cpf();

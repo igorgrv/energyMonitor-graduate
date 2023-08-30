@@ -7,12 +7,14 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import graduate.energymonitor.domains.user.controller.dto.UserResidentsRequest;
+import graduate.energymonitor.domains.user.controller.dto.UserRequest;
 import graduate.energymonitor.domains.user.controller.dto.UserResidentsResponse;
+import graduate.energymonitor.domains.user.controller.dto.UserResponse;
 import graduate.energymonitor.domains.user.entity.User;
 import graduate.energymonitor.domains.user.repository.UserRepository;
 import graduate.energymonitor.exception.AlreadyExistsException;
 import graduate.energymonitor.exception.NotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,6 +27,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<UserResidentsResponse> findAll() {
         List<User> users = repository.findAll();
+
         return users.stream().map(UserResidentsResponse::fromEntity).collect(Collectors.toList());
     }
 
@@ -34,16 +37,21 @@ public class UserService {
         return UserResidentsResponse.fromEntity(user);
     }
 
-    @Transactional
-    public UserResidentsResponse addUser(UserResidentsRequest dto) {
+    @Transactional(readOnly = true)
+    public User findByUsername(String username) {
+        return repository.findByUsername(username).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+    }
 
-        String username = dto.username();
+    @Transactional
+    public UserResponse addUser(@Valid UserRequest request) {
+
+        String username = request.username();
         if (repository.findByUsername(username).isPresent())
             throw new AlreadyExistsException(
                     String.format("User: username=%s already exists", username));
 
-        User user = repository.save(new User(dto));
-        return UserResidentsResponse.fromEntity(user);
+        User user = repository.save(new User(request));
+        return UserResponse.fromEntity(user);
     }
 
     @Transactional
@@ -51,11 +59,6 @@ public class UserService {
         User user = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         repository.delete(user);
         return UserResidentsResponse.fromEntity(user);
-    }
-
-    @Transactional(readOnly = true)
-    public User findByUsername(String username) {
-        return repository.findByUsername(username).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
     }
 
     @Transactional

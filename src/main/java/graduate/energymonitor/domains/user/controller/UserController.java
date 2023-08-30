@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import graduate.energymonitor.domains.user.controller.dto.UserResidentsRequest;
+import graduate.energymonitor.domains.user.controller.dto.UserRequest;
 import graduate.energymonitor.domains.user.controller.dto.UserResidentsResponse;
+import graduate.energymonitor.domains.user.controller.dto.UserResponse;
 import graduate.energymonitor.domains.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -76,8 +77,8 @@ public class UserController {
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @PostMapping
-    public ResponseEntity<UserResidentsResponse> createUser(@Valid @RequestBody UserResidentsRequest request) {
-        UserResidentsResponse user = service.addUser(request);
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest request) {
+        UserResponse user = service.addUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
