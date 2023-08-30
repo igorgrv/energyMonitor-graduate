@@ -35,7 +35,7 @@ public class UserService {
     public User addUser(UserDto request) {
         User user = request.toUser();
 
-        if (repository.existByUsername(user.getUsername()))
+        if (repository.findByUsername(user.getUsername()).isPresent())
             throw new AlreadyExistsException(
                     String.format("User: username=%s already exists", user.getUsername()));
 

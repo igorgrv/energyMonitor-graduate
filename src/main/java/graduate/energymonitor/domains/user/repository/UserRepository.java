@@ -10,8 +10,6 @@ import graduate.energymonitor.domains.user.entity.User;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-  boolean existByUsername(String username);
-
   Optional<User> findByUsername(String username);
 
 }

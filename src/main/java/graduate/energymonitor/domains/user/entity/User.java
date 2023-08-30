@@ -33,7 +33,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany
     private Set<Person> person = new HashSet<>();
 
     public User() {
