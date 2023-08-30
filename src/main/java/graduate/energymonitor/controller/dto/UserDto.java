@@ -1,55 +1,31 @@
 package graduate.energymonitor.controller.dto;
 
-import java.time.LocalDate;
-
-import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import graduate.energymonitor.entity.User;
-import graduate.energymonitor.entity.enums.GenderEnum;
-import graduate.energymonitor.entity.enums.RelativesEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Schema(title = "UserDTO", description = "Object that represents a data transfer object for a user")
 public record UserDto(
 
-        @NotBlank(message = "name is mandatory")
-        @Size(min = 2, max = 150, message = "size must be between {min} and {max}")
+        @NotBlank(message = "username is mandatory")
+        @Size(min = 5, max = 20, message = "size must be between {min} and {max}")
         @Pattern(regexp = "[A-zÀ-ú\s]+", message = "must contain only letters")
-        @Schema(description = "User Name", example = "Igor Romero")
-        String name,
+        @Schema(description = "UserName", example = "fiaphouses")
+        String username,
 
         @NotBlank(message = "cannot be null or empty")
-        @Size(min = 11, max = 11, message = "must have {min} characters")
-        @CPF
-        @Schema(description = "CPF to identify an user", example = "00911719032")
-        String cpf,
-
-        @NotNull(message = "birth is mandatory")
-        @DateTimeFormat(pattern = "YYYY-MM-dd")
-        @Past
-        @Schema(description = "When the person was born", example = "1996-01-01")
-        LocalDate birth,
-
-        @NotNull(message = "gender is mandatory") GenderEnum gender,
-        @NotNull(message = "relative is mandatory") RelativesEnum relative) {
+        @Size(min = 8, max = 15, message = "must have {min} characters")
+        @Schema(description = "password to log in to the system", example = "12345678")
+        String password) {
 
     public User toUser() {
-        return new User(cpf, name, birth, gender, relative);
+        return new User(username, password);
     }
 
     public User returnEntityUpdated(User user) {
-        user.setCpf(cpf);
-        user.setName(name);
-        user.setBirth(birth);
-        user.setGender(gender);
-        user.setRelative(relative);
-
+        user.setPassword(password);
         return user;
     }
 
