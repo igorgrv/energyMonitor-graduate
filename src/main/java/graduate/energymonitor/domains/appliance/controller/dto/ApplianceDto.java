@@ -1,4 +1,4 @@
-package graduate.energymonitor.domains.appliance.entity.dto;
+package graduate.energymonitor.domains.appliance.controller.dto;
 
 import graduate.energymonitor.domains.appliance.entity.Appliance;
 import io.swagger.v3.oas.annotations.media.Schema;

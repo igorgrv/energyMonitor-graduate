@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import graduate.energymonitor.domains.location.controller.dto.LocationDto;
 import graduate.energymonitor.domains.location.entity.Location;
-import graduate.energymonitor.domains.location.entity.dto.LocationDto;
 import graduate.energymonitor.domains.location.service.LocationService;
 import graduate.energymonitor.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,7 +65,8 @@ public class LocationController {
     })
     @GetMapping("/{id_location}")
     public ResponseEntity<Location> getLocationById(@PathVariable("id_location") UUID idLocation) {
-        Location location = locationService.findById(idLocation).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
+        Location location = locationService.findById(idLocation)
+                .orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
         return ResponseEntity.ok().body(location);
     }
 
@@ -84,7 +85,8 @@ public class LocationController {
             @ApiResponse(responseCode = "200", description = "SUCCESS - Location successfully updated", content = @Content(schema = @Schema(implementation = Location.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PutMapping("/{id_location}")
-    public ResponseEntity<Location> updateLocation(@PathVariable("id_location") UUID idLocation, @Valid @RequestBody LocationDto request) {
+    public ResponseEntity<Location> updateLocation(@PathVariable("id_location") UUID idLocation,
+            @Valid @RequestBody LocationDto request) {
         Location updatedLocation = locationService.updateLocation(idLocation, request);
         return ResponseEntity.ok().body(updatedLocation);
 

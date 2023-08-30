@@ -1,4 +1,4 @@
-package graduate.energymonitor.domains.location.entity.dto;
+package graduate.energymonitor.domains.location.controller.dto;
 
 import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.location.entity.enums.BrazilStatesEnum;

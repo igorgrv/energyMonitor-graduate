@@ -1,4 +1,4 @@
-package graduate.energymonitor.domains.user.entity.dto;
+package graduate.energymonitor.domains.user.controller.dto;
 
 import java.util.Set;
 

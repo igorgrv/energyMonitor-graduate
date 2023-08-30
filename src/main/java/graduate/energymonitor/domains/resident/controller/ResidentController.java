@@ -2,7 +2,6 @@
 package graduate.energymonitor.domains.resident.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import graduate.energymonitor.domains.resident.entity.Resident;
-import graduate.energymonitor.domains.resident.entity.dto.ResidentDto;
+import graduate.energymonitor.domains.resident.controller.dto.ResidentRequest;
+import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
 import graduate.energymonitor.domains.resident.service.ResidentService;
-import graduate.energymonitor.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -47,60 +45,59 @@ import lombok.RequiredArgsConstructor;
 })
 public class ResidentController {
 
-    private static final String RESIDENT_NOT_FOUND = "Resident not found";
     private final ResidentService residentService;
 
     @Operation(summary = "Get all the residents", description = "Method for getting all the residents")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Residents", content = @Content(schema = @Schema(implementation = ResidentDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Residents", content = @Content(schema = @Schema(implementation = ResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
-    public ResponseEntity<List<Resident>> getAllResidents() {
-        List<Resident> residents = residentService.findAll();
+    public ResponseEntity<List<ResidentResponse>> getAllResidents() {
+        List<ResidentResponse> residents = residentService.findAll();
         return ResponseEntity.ok().body(residents);
     }
 
     @Operation(summary = "Get a resident by ID", description = "Method to get a resident based on the ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ResidentDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @GetMapping("{id_resident}")
-    public ResponseEntity<Resident> getResidentById(@PathVariable("id_resident") UUID id) {
-        Resident resident = residentService.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
+    public ResponseEntity<ResidentResponse> getResidentById(@PathVariable("id_resident") Long id) {
+        ResidentResponse resident = residentService.findById(id);
         return ResponseEntity.ok().body(resident);
     }
 
     @Operation(summary = "Create a resident", description = "Method to crete a new resident")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Resident successfully created", content = @Content(schema = @Schema(implementation = Resident.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Resident successfully created", content = @Content(schema = @Schema(implementation = ResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "409", description = "CONFLICT - Resident already exists", content = @Content(examples = {
                     @ExampleObject(summary = "Resident already exists", value = "{\"statusCode\":409,\"message\":\"Resident: resident=Igor Romero, birth=2023-07-10, gender=MALE, relative=FATHER,  already exists\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @PostMapping
-    public ResponseEntity<Resident> createResident(@Valid @RequestBody ResidentDto request) {
-        Resident resident = residentService.addResident(request);
+    public ResponseEntity<ResidentResponse> createResident(@Valid @RequestBody ResidentRequest request) {
+        ResidentResponse resident = residentService.addResident(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(resident);
     }
 
     @Operation(summary = "Update a resident", description = "Method to update anexisting resident")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Residentsuccessfully updated", content = @Content(schema = @Schema(implementation = Resident.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Resident successfully updated", content = @Content(schema = @Schema(implementation = ResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PutMapping("{id_resident}")
-    public ResponseEntity<Resident> updateResident(@PathVariable("id_resident") UUID id,
-            @Valid @RequestBody ResidentDto request) {
-        Resident updatedResident = residentService.updateResident(id, request);
+    public ResponseEntity<ResidentResponse> updateResident(@PathVariable("id_resident") Long id,
+            @Valid @RequestBody ResidentRequest request) {
+        ResidentResponse updatedResident = residentService.updateResident(id, request);
         return ResponseEntity.ok().body(updatedResident);
     }
 
     @Operation(summary = "Delete a resident", description = "Method to delete an existing resident")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Resident successfully deleted", content = @Content(schema = @Schema(implementation = Resident.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Resident successfully deleted", content = @Content(schema = @Schema(implementation = ResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @DeleteMapping("{id_resident}")
-    public ResponseEntity<Resident> deleteResident(@PathVariable("id_resident") UUID id) {
-        Resident deletedResident = residentService.deleteResident(id);
+    public ResponseEntity<ResidentResponse> deleteResident(@PathVariable("id_resident") Long id) {
+        ResidentResponse deletedResident = residentService.deleteResident(id);
         return ResponseEntity.ok().body(deletedResident);
     }
 }

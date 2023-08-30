@@ -5,12 +5,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import graduate.energymonitor.domains.location.controller.dto.LocationDto;
 import graduate.energymonitor.domains.location.entity.Location;
-import graduate.energymonitor.domains.location.entity.dto.LocationDto;
 import graduate.energymonitor.domains.location.repository.LocationRepository;
 import graduate.energymonitor.exception.NotFoundException;
-import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service

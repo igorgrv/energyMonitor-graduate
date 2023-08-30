@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import graduate.energymonitor.domains.resident.entity.Resident;
-import graduate.energymonitor.domains.user.entity.dto.UserRequest;
+import graduate.energymonitor.domains.user.controller.dto.UserRequest;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import graduate.energymonitor.domains.appliance.controller.dto.ApplianceDto;
 import graduate.energymonitor.domains.appliance.entity.Appliance;
-import graduate.energymonitor.domains.appliance.entity.dto.ApplianceDto;
 import graduate.energymonitor.domains.appliance.service.ApplianceService;
 import graduate.energymonitor.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;

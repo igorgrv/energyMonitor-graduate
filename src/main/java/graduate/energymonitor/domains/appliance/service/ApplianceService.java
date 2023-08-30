@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import graduate.energymonitor.domains.appliance.controller.dto.ApplianceDto;
 import graduate.energymonitor.domains.appliance.entity.Appliance;
-import graduate.energymonitor.domains.appliance.entity.dto.ApplianceDto;
 import graduate.energymonitor.domains.appliance.repository.ApplianceRepository;
 import graduate.energymonitor.exception.NotFoundException;
 import org.springframework.transaction.annotation.Transactional;
