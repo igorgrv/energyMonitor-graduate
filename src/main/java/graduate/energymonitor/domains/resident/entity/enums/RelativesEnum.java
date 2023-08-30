@@ -1,4 +1,4 @@
-package graduate.energymonitor.domains.person.entity.enums;
+package graduate.energymonitor.domains.resident.entity.enums;
 
 public enum RelativesEnum {
     FATHER,

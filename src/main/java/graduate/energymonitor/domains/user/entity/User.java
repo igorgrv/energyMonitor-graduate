@@ -3,10 +3,12 @@ package graduate.energymonitor.domains.user.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import graduate.energymonitor.domains.person.entity.Person;
+import graduate.energymonitor.domains.resident.entity.Resident;
 import graduate.energymonitor.domains.user.entity.dto.UserDto;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,7 +21,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode
 @AllArgsConstructor
-// @NoArgsConstructor
 @Table(name = "USERS")
 @Entity
 public class User {
@@ -34,21 +35,15 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany
-    private Set<Person> people = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Resident> residents = new HashSet<>();
 
     public User() {
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
     }
 
     public User(UserDto dto) {
         this.username = dto.username();
         this.password = dto.password();
-        this.people = dto.people();
     }
 
 }

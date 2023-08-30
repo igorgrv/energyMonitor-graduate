@@ -27,23 +27,23 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findById(UUID id) {
+    public User findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
     }
 
     @Transactional
-    public User addUser(UserDto request) {
-        User user = request.toUser();
+    public User addUser(UserDto dto) {
 
-        if (repository.findByUsername(user.getUsername()).isPresent())
+        String username = dto.username();
+        if (repository.findByUsername(dto.username()).isPresent())
             throw new AlreadyExistsException(
-                    String.format("User: username=%s already exists", user.getUsername()));
+                    String.format("User: username=%s already exists", username));
 
-        return repository.save(user);
+        return repository.save(new User(dto));
     }
 
     @Transactional
-    public User deleteUser(UUID id) {
+    public User deleteUser(Long id) {
         User user = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         repository.delete(user);
         return user;
@@ -54,7 +54,7 @@ public class UserService {
     }
 
     @Transactional
-    public User updatePassword(UUID id, String newPassword) {
+    public User updatePassword(Long id, String newPassword) {
 
         User existingUser = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         existingUser.setPassword(newPassword);

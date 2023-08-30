@@ -1,5 +1,9 @@
 -- User data
--- insert into users (id, cpf, name, birth, gender, relative) values ('1d166200-3d47-11ee-be56-0242ac120002', '81150721251', 'Thiago Davi Lima', '1983-04-09', 'MALE', 'FATHER' );
+insert into users (id, username, password) values (1, 'fiap_user1', '12345678');
+insert into users (id, username, password) values (2, 'fiap_user2', '12345678');
+insert into users (id, username, password) values (3, 'fiap_user3', '12345678');
+
+-- Resident data
 -- insert into users (id, cpf, name, birth, gender, relative) values ('21a9274e-3d47-11ee-be56-0242ac120002', '59742897905', 'Pietro Gabriel Isaac dos Santos', '1955-03-03', 'MALE', 'FATHER' );
 -- insert into users (id, cpf, name, birth, gender, relative) values ('246c1d9c-3d47-11ee-be56-0242ac120002', '54678609172', 'Catarina Vera Jesus', '1957-04-08', 'FEMALE', 'MOTHER' );
 -- insert into users (id, cpf, name, birth, gender, relative) values ('283a563c-3d47-11ee-be56-0242ac120002', '25276887560', 'Caroline Larissa Assunção', '1983-02-09', 'FEMALE', 'DAUGHTER' );

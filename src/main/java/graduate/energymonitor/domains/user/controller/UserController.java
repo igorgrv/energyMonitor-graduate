@@ -20,6 +20,7 @@ import graduate.energymonitor.domains.user.entity.User;
 import graduate.energymonitor.domains.user.entity.dto.UserDto;
 import graduate.energymonitor.domains.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -50,7 +51,7 @@ public class UserController {
 
     @Operation(summary = "Get all the users", description = "Method for getting all the users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Users", content = @Content(schema = @Schema(implementation = UserDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Users", content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
@@ -60,10 +61,10 @@ public class UserController {
 
     @Operation(summary = "Get a user by ID", description = "Method to get a user based on the ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = UserDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = User.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @GetMapping("{id_user}")
-    public ResponseEntity<User> getUserById(@PathVariable("id_user") UUID id) {
+    public ResponseEntity<User> getUserById(@PathVariable("id_user") Long id) {
         User user = service.findById(id);
         return ResponseEntity.ok().body(user);
     }
@@ -86,7 +87,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "SUCCESS - Password successfully changed", content = @Content(schema = @Schema(implementation = User.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PutMapping("{id_user}")
-    public ResponseEntity<User> updatePassword(@PathVariable("id_user") UUID id, @Valid @RequestBody String password) {
+    public ResponseEntity<User> updatePassword(@PathVariable("id_user") Long id, @Valid @RequestBody String password) {
         User updatedUser = service.updatePassword(id, password);
         return ResponseEntity.ok().body(updatedUser);
     }
@@ -96,7 +97,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully deleted", content = @Content(schema = @Schema(implementation = User.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @DeleteMapping("{id_user}")
-    public ResponseEntity<User> deleteUser(@PathVariable("id_user") UUID id) {
+    public ResponseEntity<User> deleteUser(@PathVariable("id_user") Long id) {
         User deletedUser = service.deleteUser(id);
         return ResponseEntity.ok().body(deletedUser);
     }

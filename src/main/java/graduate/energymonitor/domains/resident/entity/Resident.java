@@ -1,10 +1,10 @@
-package graduate.energymonitor.domains.person.entity;
+package graduate.energymonitor.domains.resident.entity;
 
 import java.time.LocalDate;
 
-import graduate.energymonitor.domains.person.entity.dto.PersonDto;
-import graduate.energymonitor.domains.person.entity.enums.GenderEnum;
-import graduate.energymonitor.domains.person.entity.enums.RelativesEnum;
+import graduate.energymonitor.domains.resident.entity.dto.ResidentDto;
+import graduate.energymonitor.domains.resident.entity.enums.GenderEnum;
+import graduate.energymonitor.domains.resident.entity.enums.RelativesEnum;
 import graduate.energymonitor.domains.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,9 +24,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "PERSON")
+@Table(name = "RESIDENT")
 @Entity
-public class Person {
+public class Resident {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +51,15 @@ public class Person {
     @ManyToOne
     private User user;
 
-    public Person(PersonDto dto, User user) {
+    public Resident(ResidentDto dto) {
+        this.cpf = dto.cpf();
+        this.name = dto.name();
+        this.gender = dto.gender();
+        this.birth = dto.birth();
+        this.relative = dto.relative();
+    }
+
+    public Resident(ResidentDto dto, User user) {
         this.cpf = dto.cpf();
         this.name = dto.name();
         this.gender = dto.gender();

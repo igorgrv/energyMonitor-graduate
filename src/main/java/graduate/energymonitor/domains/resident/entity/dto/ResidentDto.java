@@ -1,14 +1,13 @@
-package graduate.energymonitor.domains.person.entity.dto;
+package graduate.energymonitor.domains.resident.entity.dto;
 
 import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import graduate.energymonitor.domains.person.entity.Person;
-import graduate.energymonitor.domains.person.entity.enums.GenderEnum;
-import graduate.energymonitor.domains.person.entity.enums.RelativesEnum;
-import graduate.energymonitor.domains.user.entity.User;
+import graduate.energymonitor.domains.resident.entity.Resident;
+import graduate.energymonitor.domains.resident.entity.enums.GenderEnum;
+import graduate.energymonitor.domains.resident.entity.enums.RelativesEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +16,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Schema(title = "UserDTO", description = "Object that represents a data transfer object for a user")
-public record PersonDto(
+public record ResidentDto(
 
     @NotBlank(message = "name is mandatory")
     @Size(min = 2, max = 150, message = "size must be between {min} and {max}")
@@ -34,24 +33,25 @@ public record PersonDto(
     @NotNull(message = "birth is mandatory")
     @DateTimeFormat(pattern = "YYYY-MM-dd")
     @Past
-    @Schema(description = "When the person was born", example = "1996-01-01")
+    @Schema(description = "When the resident was born", example = "1996-01-01")
     LocalDate birth,
 
     @NotNull(message = "gender is mandatory") GenderEnum gender,
-    @NotNull(message = "relative is mandatory") RelativesEnum relative) {
+    @NotNull(message = "relative is mandatory") RelativesEnum relative,
+    String username) {
 
-    public Person toPerson(User user) {
-        return new Person(this, user);
+    public Resident toEntity() {
+        return new Resident(this);
     }
 
-    public Person returnEntityUpdated(Person person) {
-        person.setCpf(cpf);
-        person.setName(name);
-        person.setBirth(birth);
-        person.setGender(gender);
-        person.setRelative(relative);
+    public Resident returnEntityUpdated(Resident resident) {
+        resident.setCpf(cpf);
+        resident.setName(name);
+        resident.setBirth(birth);
+        resident.setGender(gender);
+        resident.setRelative(relative);
 
-        return person;
+        return resident;
     }
 
 }
