@@ -2,17 +2,16 @@
 package graduate.energymonitor.domains.user.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import graduate.energymonitor.domains.user.entity.User;
 import graduate.energymonitor.domains.user.entity.dto.UserDto;
 import graduate.energymonitor.domains.user.repository.UserRepository;
 import graduate.energymonitor.exception.AlreadyExistsException;
 import graduate.energymonitor.exception.NotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -22,14 +21,17 @@ public class UserService {
     private final UserRepository repository;
     private static final String USER_NOT_FOUND = "User not found";
 
+    @Transactional(readOnly = true)
     public List<User> findAll() {
         return repository.findAll();
     }
 
-    public Optional<User> findById(UUID id) {
-        return repository.findById(id);
+    @Transactional(readOnly = true)
+    public User findById(UUID id) {
+        return repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
     }
 
+    @Transactional
     public User addUser(UserDto request) {
         User user = request.toUser();
 
@@ -47,14 +49,17 @@ public class UserService {
         return user;
     }
 
-    // @Transactional
-    // public User updateUser(UUID id, UserDto updatedUserDto) {
+    public User findByUsername(String username) {
+        return repository.findByUsername(username).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+    }
 
-    // User existingUser = repository.findById(id).orElseThrow(() -> new
-    // NotFoundException(USER_NOT_FOUND));
-    // User updatedUser = updatedUserDto.returnEntityUpdated(existingUser);
+    @Transactional
+    public User updateUser(UUID id, UserDto updatedUserDto) {
 
-    // return repository.save(updatedUser);
-    // }
+        User existingUser = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        User updatedUser = updatedUserDto.returnEntityUpdated(existingUser);
+
+        return repository.save(updatedUser);
+    }
 
 }

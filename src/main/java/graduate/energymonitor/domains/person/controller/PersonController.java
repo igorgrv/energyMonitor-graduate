@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import graduate.energymonitor.domains.person.entity.Person;
-import graduate.energymonitor.domains.person.entity.dto.PersonUserDto;
+import graduate.energymonitor.domains.person.entity.dto.PersonDto;
 import graduate.energymonitor.domains.person.service.PersonService;
 import graduate.energymonitor.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("people")
-@Tag(name = "Persons", description = "Methods for manipulating person data")
+@Tag(name = "People", description = "Methods for manipulating person data")
 @RequiredArgsConstructor
 @ApiResponses(value = {
         @ApiResponse(responseCode = "400", description = "BAD REQUEST - Client error", content = @Content(examples = {
@@ -52,17 +52,17 @@ public class PersonController {
 
     @Operation(summary = "Get all the people", description = "Method for getting all the people")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Persons", content = @Content(schema = @Schema(implementation = PersonUserDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all People", content = @Content(schema = @Schema(implementation = PersonDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
-    public ResponseEntity<List<Person>> getAllPersons() {
+    public ResponseEntity<List<Person>> getAllPeople() {
         List<Person> people = personService.findAll();
         return ResponseEntity.ok().body(people);
     }
 
     @Operation(summary = "Get a person by ID", description = "Method to get a person based on the ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = PersonUserDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = PersonDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @GetMapping("{id_person}")
     public ResponseEntity<Person> getPersonById(@PathVariable("id_person") UUID id) {
@@ -77,22 +77,22 @@ public class PersonController {
                     @ExampleObject(summary = "Person already exists", value = "{\"statusCode\":409,\"message\":\"Person: person=Igor Romero, birth=2023-07-10, gender=MALE, relative=FATHER,  already exists\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
-    @PostMapping
-    public ResponseEntity<Person> createPerson(@Valid @RequestBody PersonUserDto request) {
-        Person person = personService.addPerson(request);
+    @PostMapping("{username}")
+    public ResponseEntity<Person> createPerson(@Valid @RequestBody PersonDto request, @PathVariable String username) {
+        Person person = personService.addPerson(request, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(person);
     }
 
-    // @Operation(summary = "Update a person", description = "Method to update an existing person")
-    // @ApiResponses(value = {
-    //         @ApiResponse(responseCode = "200", description = "SUCCESS - Person successfully updated", content = @Content(schema = @Schema(implementation = Person.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
-    // })
-    // @PutMapping("{id_person}")
-    // public ResponseEntity<Person> updatePerson(@PathVariable("id_person") UUID id,
-    //         @Valid @RequestBody PersonUserDto request) {
-    //     Person updatedPerson = personService.updatePerson(id, request);
-    //     return ResponseEntity.ok().body(updatedPerson);
-    // }
+    @Operation(summary = "Update a person", description = "Method to update anexisting person")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Personsuccessfully updated", content = @Content(schema = @Schema(implementation = Person.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+    })
+    @PutMapping("{id_person}")
+    public ResponseEntity<Person> updatePerson(@PathVariable("id_person") UUID id,
+            @Valid @RequestBody PersonDto request) {
+        Person updatedPerson = personService.updatePerson(id, request);
+        return ResponseEntity.ok().body(updatedPerson);
+    }
 
     @Operation(summary = "Delete a person", description = "Method to delete an existing person")
     @ApiResponses(value = {

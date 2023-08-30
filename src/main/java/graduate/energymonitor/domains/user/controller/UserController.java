@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import graduate.energymonitor.domains.user.entity.User;
 import graduate.energymonitor.domains.user.entity.dto.UserDto;
 import graduate.energymonitor.domains.user.service.UserService;
-import graduate.energymonitor.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -46,7 +46,6 @@ import lombok.RequiredArgsConstructor;
 })
 public class UserController {
 
-    private static final String USER_NOT_FOUND = "User not found";
     private final UserService service;
 
     @Operation(summary = "Get all the users", description = "Method for getting all the users")
@@ -65,7 +64,7 @@ public class UserController {
     })
     @GetMapping("{id_user}")
     public ResponseEntity<User> getUserById(@PathVariable("id_user") UUID id) {
-        User user = service.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        User user = service.findById(id);
         return ResponseEntity.ok().body(user);
     }
 
@@ -82,19 +81,16 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    // @Operation(summary = "Update a user", description = "Method to update an
-    // existing user")
-    // @ApiResponses(value = {
-    // @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully
-    // updated", content = @Content(schema = @Schema(implementation = User.class),
-    // mediaType = MediaType.APPLICATION_JSON_VALUE)),
-    // })
-    // @PutMapping("{id_user}")
-    // public ResponseEntity<User> updateUser(@PathVariable("id_user") UUID id,
-    // @Valid @RequestBody UserDto request) {
-    // User updatedUser = service.updateUser(id, request);
-    // return ResponseEntity.ok().body(updatedUser);
-    // }
+    @Operation(summary = "Update a user", description = "Method to update anexisting user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfullyupdated", content = @Content(schema = @Schema(implementation = User.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+    })
+    @PutMapping("{id_user}")
+    public ResponseEntity<User> updateUser(@PathVariable("id_user") UUID id,
+            @Valid @RequestBody UserDto request) {
+        User updatedUser = service.updateUser(id, request);
+        return ResponseEntity.ok().body(updatedUser);
+    }
 
     @Operation(summary = "Delete a user", description = "Method to delete an existing user")
     @ApiResponses(value = {

@@ -10,7 +10,7 @@ import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.location.entity.dto.LocationDto;
 import graduate.energymonitor.domains.location.repository.LocationRepository;
 import graduate.energymonitor.exception.NotFoundException;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,14 +20,17 @@ public class LocationService {
     private final LocationRepository repository;
     private static final String LOCATION_NOT_FOUND = "Location not found";
 
+    @Transactional(readOnly = true)
     public List<Location> findAll() {
         return repository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Optional<Location> findById(UUID id) {
         return repository.findById(id);
     }
 
+    @Transactional
     public Location addLocation(LocationDto request) {
         Location location = request.toLocation();
         return repository.save(location);

@@ -11,7 +11,7 @@ import graduate.energymonitor.domains.appliance.entity.Appliance;
 import graduate.energymonitor.domains.appliance.entity.dto.ApplianceDto;
 import graduate.energymonitor.domains.appliance.repository.ApplianceRepository;
 import graduate.energymonitor.exception.NotFoundException;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -21,14 +21,17 @@ public class ApplianceService {
     private final ApplianceRepository repository;
     private static final String APPLIANCE_NOT_FOUND = "Appliance not found";
 
+    @Transactional(readOnly = true)
     public List<Appliance> findAll() {
         return repository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Optional<Appliance> findById(UUID id) {
         return repository.findById(id);
     }
 
+    @Transactional
     public Appliance addAppliance(ApplianceDto request) {
         Appliance appliance = request.toAppliance();
         return repository.save(appliance);

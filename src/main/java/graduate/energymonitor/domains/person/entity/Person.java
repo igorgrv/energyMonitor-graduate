@@ -1,16 +1,24 @@
 package graduate.energymonitor.domains.person.entity;
 
-import graduate.energymonitor.domains.person.entity.dto.PersonUserDto;
+import java.time.LocalDate;
+
+import graduate.energymonitor.domains.person.entity.dto.PersonDto;
 import graduate.energymonitor.domains.person.entity.enums.GenderEnum;
 import graduate.energymonitor.domains.person.entity.enums.RelativesEnum;
 import graduate.energymonitor.domains.user.entity.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode
@@ -41,16 +49,15 @@ public class Person {
     private RelativesEnum relative;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
     private User user;
 
-    public Person(PersonUserDto dto) {
+    public Person(PersonDto dto, User user) {
         this.cpf = dto.cpf();
         this.name = dto.name();
         this.gender = dto.gender();
         this.birth = dto.birth();
         this.relative = dto.relative();
-        this.user = dto.user();
+        this.user = user;
     }
 
 }
