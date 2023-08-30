@@ -2,7 +2,7 @@ package graduate.energymonitor.domains.resident.entity;
 
 import java.time.LocalDate;
 
-import graduate.energymonitor.domains.resident.controller.dto.ResidentRequest;
+import graduate.energymonitor.domains.resident.controller.dto.ResidentUserRequest;
 import graduate.energymonitor.domains.resident.entity.enums.GenderEnum;
 import graduate.energymonitor.domains.resident.entity.enums.RelativesEnum;
 import graduate.energymonitor.domains.user.entity.User;
@@ -53,7 +53,7 @@ public class Resident {
     @JoinColumn(name = "users_id")
     private User user;
 
-    public Resident(ResidentRequest dto) {
+    public Resident(ResidentUserRequest dto) {
         this.cpf = dto.cpf();
         this.name = dto.name();
         this.gender = dto.gender();
@@ -61,7 +61,7 @@ public class Resident {
         this.relative = dto.relative();
     }
 
-    public Resident(ResidentRequest dto, User user) {
+    public Resident(ResidentUserRequest dto, User user) {
         this.cpf = dto.cpf();
         this.name = dto.name();
         this.gender = dto.gender();

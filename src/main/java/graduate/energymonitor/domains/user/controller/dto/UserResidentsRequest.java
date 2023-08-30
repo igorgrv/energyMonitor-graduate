@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Schema(title = "UserDTO", description = "Object that represents a data transfer object for a user")
-public record UserRequest(
+public record UserResidentsRequest(
 
     @NotBlank(message = "username is mandatory")
     @Size(min = 5, max = 20, message = "size must be between {min} and {max}")
@@ -23,7 +23,7 @@ public record UserRequest(
     
     Set<Resident> residents) {
 
-    public static User toEntity(UserRequest dto) {
+    public static User toEntity(UserResidentsRequest dto) {
         return new User(dto);
     }
 

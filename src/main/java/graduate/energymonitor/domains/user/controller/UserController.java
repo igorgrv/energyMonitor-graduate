@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import graduate.energymonitor.domains.user.controller.dto.UserRequest;
-import graduate.energymonitor.domains.user.controller.dto.UserResponse;
+import graduate.energymonitor.domains.user.controller.dto.UserResidentsRequest;
+import graduate.energymonitor.domains.user.controller.dto.UserResidentsResponse;
 import graduate.energymonitor.domains.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -50,55 +50,55 @@ public class UserController {
 
     @Operation(summary = "Get all the users", description = "Method for getting all the users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Users", content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserResponse.class)), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Users", content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserResidentsResponse.class)), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers() {
-        List<UserResponse> users = service.findAll();
+    public ResponseEntity<List<UserResidentsResponse>> getAllUsers() {
+        List<UserResidentsResponse> users = service.findAll();
         return ResponseEntity.ok().body(users);
     }
 
     @Operation(summary = "Get a user by ID", description = "Method to get a user based on the ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = UserResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = UserResidentsResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @GetMapping("{id_user}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable("id_user") Long id) {
-        UserResponse user = service.findById(id);
+    public ResponseEntity<UserResidentsResponse> getUserById(@PathVariable("id_user") Long id) {
+        UserResidentsResponse user = service.findById(id);
         return ResponseEntity.ok().body(user);
     }
 
     @Operation(summary = "Create a user", description = "Method to crete a new user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully created", content = @Content(schema = @Schema(implementation = UserResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully created", content = @Content(schema = @Schema(implementation = UserResidentsResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "409", description = "CONFLICT - User already exists", content = @Content(examples = {
                     @ExampleObject(summary = "User already exists", value = "{\"statusCode\":409,\"message\":\"User: user=Igor Romero, birth=2023-07-10, gender=MALE, relative=FATHER,  already exists\"}")
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @PostMapping
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest request) {
-        UserResponse user = service.addUser(request);
+    public ResponseEntity<UserResidentsResponse> createUser(@Valid @RequestBody UserResidentsRequest request) {
+        UserResidentsResponse user = service.addUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @Operation(summary = "Update a password", description = "Method to update user password")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Password successfully changed", content = @Content(schema = @Schema(implementation = UserResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Password successfully changed", content = @Content(schema = @Schema(implementation = UserResidentsResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PutMapping("{id_user}")
-    public ResponseEntity<UserResponse> updatePassword(@PathVariable("id_user") Long id,
+    public ResponseEntity<UserResidentsResponse> updatePassword(@PathVariable("id_user") Long id,
             @Valid @RequestBody String password) {
-        UserResponse updatedUser = service.updatePassword(id, password);
+        UserResidentsResponse updatedUser = service.updatePassword(id, password);
         return ResponseEntity.ok().body(updatedUser);
     }
 
     @Operation(summary = "Delete a user", description = "Method to delete an existing user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully deleted", content = @Content(schema = @Schema(implementation = UserResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfully deleted", content = @Content(schema = @Schema(implementation = UserResidentsResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @DeleteMapping("{id_user}")
-    public ResponseEntity<UserResponse> deleteUser(@PathVariable("id_user") Long id) {
-        UserResponse deletedUser = service.deleteUser(id);
+    public ResponseEntity<UserResidentsResponse> deleteUser(@PathVariable("id_user") Long id) {
+        UserResidentsResponse deletedUser = service.deleteUser(id);
         return ResponseEntity.ok().body(deletedUser);
     }
 }

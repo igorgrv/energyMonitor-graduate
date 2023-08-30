@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import graduate.energymonitor.domains.resident.entity.Resident;
-import graduate.energymonitor.domains.user.controller.dto.UserRequest;
+import graduate.energymonitor.domains.user.controller.dto.UserResidentsRequest;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +40,7 @@ public class User {
     public User() {
     }
 
-    public User(UserRequest dto) {
+    public User(UserResidentsRequest dto) {
         this.username = dto.username();
         this.password = dto.password();
 

@@ -16,7 +16,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Schema(title = "UserDTO", description = "Object that represents a data transfer object for a user")
-public record ResidentRequest(
+public record ResidentUserRequest(
 
     @NotBlank(message = "name is mandatory")
     @Size(min = 2, max = 150, message = "size must be between {min} and {max}")

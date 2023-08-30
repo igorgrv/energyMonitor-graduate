@@ -2,12 +2,13 @@
 package graduate.energymonitor.domains.resident.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import graduate.energymonitor.domains.resident.controller.dto.ResidentRequest;
-import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
+import graduate.energymonitor.domains.resident.controller.dto.ResidentUserRequest;
+import graduate.energymonitor.domains.resident.controller.dto.ResidentUserResponse;
 import graduate.energymonitor.domains.resident.entity.Resident;
 import graduate.energymonitor.domains.resident.repository.ResidentRepository;
 import graduate.energymonitor.domains.user.entity.User;
@@ -25,19 +26,19 @@ public class ResidentService {
     private static final String RESIDENT_NOT_FOUND = "Resident not found";
 
     @Transactional(readOnly = true)
-    public List<ResidentResponse> findAll() {
+    public List<ResidentUserResponse> findAll() {
         List<Resident> residents = repository.findAll();
-        return ResidentResponse.fromEntity(residents);
+        return residents.stream().map(ResidentUserResponse::fromEntity).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public ResidentResponse findById(Long id) {
+    public ResidentUserResponse findById(Long id) {
         Resident resident = repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
-        return ResidentResponse.fromEntity(resident);
+        return ResidentUserResponse.fromEntity(resident);
     }
 
     @Transactional
-    public ResidentResponse addResident(ResidentRequest dto) {
+    public ResidentUserResponse addResident(ResidentUserRequest dto) {
 
         Resident resident = dto.toEntity();
         String cpf = resident.getCpf();
@@ -47,24 +48,25 @@ public class ResidentService {
         User user = userService.findByUsername(dto.username());
         resident.setUser(user);
         Resident residentUpdated = repository.save(resident);
-        return ResidentResponse.fromEntity(residentUpdated);
+        return ResidentUserResponse.fromEntity(residentUpdated);
     }
 
     @Transactional
-    public ResidentResponse deleteResident(Long id) {
+    public ResidentUserResponse deleteResident(Long id) {
         Resident resident = repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
         repository.delete(resident);
-        return ResidentResponse.fromEntity(resident);
+        return ResidentUserResponse.fromEntity(resident);
     }
 
     @Transactional
-    public ResidentResponse updateResident(Long id, ResidentRequest updatedResidentDto) {
+    public ResidentUserResponse updateResident(Long id, ResidentUserRequest updatedResidentDto) {
 
-        Resident existingResident = repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
+        Resident existingResident = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
         Resident updatedResident = updatedResidentDto.returnEntityUpdated(existingResident);
 
         Resident residentUpdated = repository.save(updatedResident);
-        return ResidentResponse.fromEntity(residentUpdated);
+        return ResidentUserResponse.fromEntity(residentUpdated);
     }
 
 }
