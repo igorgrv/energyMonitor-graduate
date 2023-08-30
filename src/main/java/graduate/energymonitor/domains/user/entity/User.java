@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import graduate.energymonitor.domains.person.entity.Person;
+import graduate.energymonitor.domains.user.entity.dto.UserDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,7 +35,7 @@ public class User {
     private String password;
 
     @OneToMany
-    private Set<Person> person = new HashSet<>();
+    private Set<Person> people = new HashSet<>();
 
     public User() {
     }
@@ -42,6 +43,12 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(UserDto dto) {
+        this.username = dto.username();
+        this.password = dto.password();
+        this.people = dto.people();
     }
 
 }

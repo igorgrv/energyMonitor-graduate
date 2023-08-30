@@ -1,5 +1,8 @@
 package graduate.energymonitor.domains.user.entity.dto;
 
+import java.util.Set;
+
+import graduate.energymonitor.domains.person.entity.Person;
 import graduate.energymonitor.domains.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -18,15 +21,14 @@ public record UserDto(
         @NotBlank(message = "cannot be null or empty")
         @Size(min = 8, max = 15, message = "must have {min} characters")
         @Schema(description = "password to log in to the system", example = "12345678")
-        String password) {
+        String password,
+        
+        Set<Person> people) {
 
     public User toUser() {
-        return new User(username, password);
-    }
-
-    public User returnEntityUpdated(User user) {
-        user.setPassword(password);
-        return user;
+        if(people.isEmpty())
+            return new User(username, password);
+        return new User(this);
     }
 
 }

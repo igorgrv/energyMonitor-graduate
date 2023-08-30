@@ -54,10 +54,11 @@ public class UserService {
     }
 
     @Transactional
-    public User updateUser(UUID id, UserDto updatedUserDto) {
+    public User updatePassword(UUID id, String newPassword) {
 
         User existingUser = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-        User updatedUser = updatedUserDto.returnEntityUpdated(existingUser);
+        existingUser.setPassword(newPassword);
+        User updatedUser = repository.save(existingUser);
 
         return repository.save(updatedUser);
     }

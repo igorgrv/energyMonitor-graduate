@@ -81,14 +81,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @Operation(summary = "Update a user", description = "Method to update anexisting user")
+    @Operation(summary = "Update a password", description = "Method to update user password")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - User successfullyupdated", content = @Content(schema = @Schema(implementation = User.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Password successfully changed", content = @Content(schema = @Schema(implementation = User.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PutMapping("{id_user}")
-    public ResponseEntity<User> updateUser(@PathVariable("id_user") UUID id,
-            @Valid @RequestBody UserDto request) {
-        User updatedUser = service.updateUser(id, request);
+    public ResponseEntity<User> updatePassword(@PathVariable("id_user") UUID id, @Valid @RequestBody String password) {
+        User updatedUser = service.updatePassword(id, password);
         return ResponseEntity.ok().body(updatedUser);
     }
 
