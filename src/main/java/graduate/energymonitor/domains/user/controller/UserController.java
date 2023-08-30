@@ -2,7 +2,6 @@
 package graduate.energymonitor.domains.user.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import graduate.energymonitor.domains.user.entity.User;
-import graduate.energymonitor.domains.user.entity.dto.UserDto;
+import graduate.energymonitor.domains.user.entity.dto.UserRequest;
+import graduate.energymonitor.domains.user.entity.dto.UserResponse;
 import graduate.energymonitor.domains.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -54,8 +54,8 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Users", content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = service.findAll();
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<UserResponse> users = service.findAll();
         return ResponseEntity.ok().body(users);
     }
 
@@ -77,7 +77,7 @@ public class UserController {
             }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody UserDto request) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody UserRequest request) {
         User user = service.addUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }

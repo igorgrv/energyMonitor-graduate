@@ -41,12 +41,9 @@ public class ResidentService {
         Resident resident = dto.toEntity();
 
         if (repository.existsByCpf(resident.getCpf()))
-            throw new AlreadyExistsException(
-                    String.format("Resident: cpf=%s, resident=%s, birth=%s, gender=%s, relative=%s,  already exists",
-                            resident.getCpf(), resident.getName(), resident.getBirth(), resident.getGender(),
-                            resident.getRelative()));
-        
-                            User user = userService.findByUsername(dto.username());
+            throw new AlreadyExistsException(String.format("Resident: cpf=%s already exists", resident.getCpf()));
+
+        User user = userService.findByUsername(dto.username());
         resident.setUser(user);
         return repository.save(resident);
     }

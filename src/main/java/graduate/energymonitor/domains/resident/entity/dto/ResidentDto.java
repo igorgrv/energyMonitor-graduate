@@ -38,6 +38,9 @@ public record ResidentDto(
 
     @NotNull(message = "gender is mandatory") GenderEnum gender,
     @NotNull(message = "relative is mandatory") RelativesEnum relative,
+    
+    @NotNull(message = "username is mandatory")
+    @Schema(description = "User to access the app", example = "fiap_user1")
     String username) {
 
     public Resident toEntity() {

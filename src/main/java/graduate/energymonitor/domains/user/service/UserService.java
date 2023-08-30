@@ -2,13 +2,13 @@
 package graduate.energymonitor.domains.user.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import graduate.energymonitor.domains.user.entity.User;
-import graduate.energymonitor.domains.user.entity.dto.UserDto;
+import graduate.energymonitor.domains.user.entity.dto.UserRequest;
+import graduate.energymonitor.domains.user.entity.dto.UserResponse;
 import graduate.energymonitor.domains.user.repository.UserRepository;
 import graduate.energymonitor.exception.AlreadyExistsException;
 import graduate.energymonitor.exception.NotFoundException;
@@ -22,8 +22,9 @@ public class UserService {
     private static final String USER_NOT_FOUND = "User not found";
 
     @Transactional(readOnly = true)
-    public List<User> findAll() {
-        return repository.findAll();
+    public List<UserResponse> findAll() {
+        List<User> users = repository.findAll();
+        return UserResponse.fromEntity(users);
     }
 
     @Transactional(readOnly = true)
@@ -32,7 +33,7 @@ public class UserService {
     }
 
     @Transactional
-    public User addUser(UserDto dto) {
+    public User addUser(UserRequest dto) {
 
         String username = dto.username();
         if (repository.findByUsername(dto.username()).isPresent())
@@ -49,6 +50,7 @@ public class UserService {
         return user;
     }
 
+    @Transactional(readOnly = true)
     public User findByUsername(String username) {
         return repository.findByUsername(username).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
     }

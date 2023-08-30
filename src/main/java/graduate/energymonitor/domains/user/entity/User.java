@@ -4,11 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import graduate.energymonitor.domains.resident.entity.Resident;
-import graduate.energymonitor.domains.user.entity.dto.UserDto;
+import graduate.energymonitor.domains.user.entity.dto.UserRequest;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,15 +34,18 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Resident> residents = new HashSet<>();
 
     public User() {
     }
 
-    public User(UserDto dto) {
+    public User(UserRequest dto) {
         this.username = dto.username();
         this.password = dto.password();
+
+        if (dto.residents() != null && !dto.residents().isEmpty())
+            this.residents = dto.residents();
     }
 
 }

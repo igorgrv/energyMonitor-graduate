@@ -1,7 +1,7 @@
 -- User data
-insert into users (id, username, password) values (1, 'fiap_user1', '12345678');
-insert into users (id, username, password) values (2, 'fiap_user2', '12345678');
-insert into users (id, username, password) values (3, 'fiap_user3', '12345678');
+-- insert into users (id, username, password) values (1, 'fiap_user1', '12345678');
+-- insert into users (id, username, password) values (2, 'fiap_user2', '12345678');
+-- insert into users (id, username, password) values (3, 'fiap_user3', '12345678');
 
 -- Resident data
 -- insert into users (id, cpf, name, birth, gender, relative) values ('21a9274e-3d47-11ee-be56-0242ac120002', '59742897905', 'Pietro Gabriel Isaac dos Santos', '1955-03-03', 'MALE', 'FATHER' );
