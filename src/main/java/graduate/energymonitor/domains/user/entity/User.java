@@ -34,7 +34,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private Set<Resident> residents = new HashSet<>();
 
     public User() {
@@ -43,9 +43,6 @@ public class User {
     public User(UserResidentsRequest dto) {
         this.username = dto.username();
         this.password = dto.password();
-
-        if (dto.residents() != null && !dto.residents().isEmpty())
-            this.residents = dto.residents();
     }
 
 }

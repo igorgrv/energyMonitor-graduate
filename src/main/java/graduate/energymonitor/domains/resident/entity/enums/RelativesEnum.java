@@ -5,5 +5,7 @@ public enum RelativesEnum {
     MOTHER,
     SON,
     DAUGHTER,
+    BROTHER,
+    SISTER,
     OTHER
 }

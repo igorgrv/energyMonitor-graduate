@@ -2,7 +2,7 @@ package graduate.energymonitor.domains.user.controller.dto;
 
 import java.util.Set;
 
-import graduate.energymonitor.domains.resident.entity.Resident;
+import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
 import graduate.energymonitor.domains.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -21,7 +21,7 @@ public record UserResidentsRequest(
     @Schema(description = "password to log in to the system", example = "12345678")
     String password,
     
-    Set<Resident> residents) {
+    Set<ResidentResponse> residents) {
 
     public static User toEntity(UserResidentsRequest dto) {
         return new User(dto);
