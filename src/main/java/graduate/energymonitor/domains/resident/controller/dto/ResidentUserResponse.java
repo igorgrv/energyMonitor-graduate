@@ -6,7 +6,9 @@ import graduate.energymonitor.domains.resident.entity.Resident;
 import graduate.energymonitor.domains.resident.entity.enums.GenderEnum;
 import graduate.energymonitor.domains.resident.entity.enums.RelativesEnum;
 import graduate.energymonitor.domains.user.controller.dto.UserResponse;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(title = "ResidentUserResponse", description = "Object that represents a Resident and User response")
 public record ResidentUserResponse(
         Long id,
         String cpf,

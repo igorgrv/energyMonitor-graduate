@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import graduate.energymonitor.domains.location.controller.dto.LocationDto;
+import graduate.energymonitor.domains.location.controller.dto.LocationRequest;
 import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.location.service.LocationService;
 import graduate.energymonitor.exception.NotFoundException;
@@ -51,7 +51,7 @@ public class LocationController {
 
     @Operation(summary = "Get all the locations", description = "Method for getting all the locations")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all locations", content = @Content(schema = @Schema(implementation = LocationDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all locations", content = @Content(schema = @Schema(implementation = LocationRequest.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
     public ResponseEntity<List<Location>> getAllLocations() {
@@ -61,7 +61,7 @@ public class LocationController {
 
     @Operation(summary = "Get a location by ID", description = "Method to get a location based on the ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = LocationDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = LocationRequest.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @GetMapping("/{id_location}")
     public ResponseEntity<Location> getLocationById(@PathVariable("id_location") UUID idLocation) {
@@ -75,7 +75,7 @@ public class LocationController {
             @ApiResponse(responseCode = "200", description = "SUCCESS - Location successfully created", content = @Content(schema = @Schema(implementation = Location.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PostMapping
-    public ResponseEntity<Location> createLocation(@Valid @RequestBody LocationDto request) {
+    public ResponseEntity<Location> createLocation(@Valid @RequestBody LocationRequest request) {
         Location location = locationService.addLocation(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(location);
     }
@@ -86,7 +86,7 @@ public class LocationController {
     })
     @PutMapping("/{id_location}")
     public ResponseEntity<Location> updateLocation(@PathVariable("id_location") UUID idLocation,
-            @Valid @RequestBody LocationDto request) {
+            @Valid @RequestBody LocationRequest request) {
         Location updatedLocation = locationService.updateLocation(idLocation, request);
         return ResponseEntity.ok().body(updatedLocation);
 

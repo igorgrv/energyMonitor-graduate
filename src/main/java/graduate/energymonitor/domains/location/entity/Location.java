@@ -47,7 +47,7 @@ public class Location {
     @Column(nullable = false, length = 2)
     private BrazilStatesEnum state;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "locations")
     private List<Resident> residents;
 
     public Location(String address, Integer number, String neighborhood, String city, BrazilStatesEnum state) {

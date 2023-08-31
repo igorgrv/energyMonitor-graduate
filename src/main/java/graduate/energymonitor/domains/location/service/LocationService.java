@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import graduate.energymonitor.domains.location.controller.dto.LocationDto;
+import graduate.energymonitor.domains.location.controller.dto.LocationRequest;
 import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.location.repository.LocationRepository;
 import graduate.energymonitor.exception.NotFoundException;
@@ -31,7 +31,7 @@ public class LocationService {
     }
 
     @Transactional
-    public Location addLocation(LocationDto request) {
+    public Location addLocation(LocationRequest request) {
         Location location = request.toLocation();
         return repository.save(location);
     }
@@ -44,7 +44,7 @@ public class LocationService {
     }
 
     @Transactional
-    public Location updateLocation(UUID id, LocationDto updatedLocationDto) {
+    public Location updateLocation(UUID id, LocationRequest updatedLocationDto) {
 
         Location location = findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
         Location updatedUser = updatedLocationDto.returnEntityUpdated(location);

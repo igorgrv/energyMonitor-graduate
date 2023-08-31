@@ -54,6 +54,9 @@ public class Resident {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToMany
+    private List<Location> locations;
+
     public Resident(ResidentUserRequest dto) {
         this.cpf = dto.cpf();
         this.name = dto.name();

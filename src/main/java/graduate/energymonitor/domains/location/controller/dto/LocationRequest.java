@@ -6,8 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-@Schema(title = "LocationDto", description = "Object that represents a data transfer object for a Location")
-public record LocationDto(
+@Schema(title = "LocationRequest", description = "Object that represents a Location's data transfer object")
+public record LocationRequest(
         
         @Schema(description = "Address where the user physically lives", example = "Rua xyz")
         @NotBlank(message = "address is mandatory") String address,

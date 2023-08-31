@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-@Schema(title = "UserDTO", description = "Object that represents a data transfer object for a user")
+@Schema(title = "ResidentUserRequest", description = "Object that represents a Resident and User data transfer object")
 public record ResidentUserRequest(
 
     @NotBlank(message = "name is mandatory")
