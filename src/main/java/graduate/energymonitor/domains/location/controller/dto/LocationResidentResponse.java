@@ -19,6 +19,19 @@ public record LocationResidentResponse(
         List<ResidentResponse> residents) {
 
     public static LocationResidentResponse fromEntity(Location location) {
+        location.getResidents().forEach(resident -> resident.getLocations().add(location));
+        
+        List<ResidentResponse> residents = new ArrayList<>();
+        if (location.getResidents() != null && !location.getResidents().isEmpty()) {
+            residents = location.getResidents().stream().map(ResidentResponse::fromEntity).collect(Collectors.toList());
+        }
+
+        return new LocationResidentResponse(location.getAddress(), location.getNeighborhood(), location.getCity(),
+                location.getState(), location.getNumber(), residents);
+    }
+
+    public static LocationResidentResponse test(Location location) {
+        
         List<ResidentResponse> residents = new ArrayList<>();
         if (location.getResidents() != null && !location.getResidents().isEmpty()) {
             residents = location.getResidents().stream().map(ResidentResponse::fromEntity).collect(Collectors.toList());

@@ -1,5 +1,6 @@
 package graduate.energymonitor.domains.location.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import graduate.energymonitor.domains.location.entity.enums.BrazilStatesEnum;
@@ -45,7 +46,7 @@ public class Location {
     private BrazilStatesEnum state;
 
     @ManyToMany(mappedBy = "locations")
-    private List<Resident> residents;
+    private List<Resident> residents = new ArrayList<>();
 
     public Location(String address, Integer number, String neighborhood, String city, BrazilStatesEnum state) {
         this.address = address;

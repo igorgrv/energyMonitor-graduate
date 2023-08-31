@@ -40,7 +40,7 @@ public class ResidentService {
 
     @Transactional(readOnly = true)
     public Resident findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
+        return repository.getReferenceById(id);
     }
 
     @Transactional

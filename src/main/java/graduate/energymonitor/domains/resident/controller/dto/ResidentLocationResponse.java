@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import graduate.energymonitor.domains.location.controller.dto.LocationResidentResponse;
+import graduate.energymonitor.domains.location.controller.dto.LocationResponse;
 import graduate.energymonitor.domains.resident.entity.Resident;
 import graduate.energymonitor.domains.resident.entity.enums.GenderEnum;
 import graduate.energymonitor.domains.resident.entity.enums.RelativesEnum;
@@ -20,13 +21,13 @@ public record ResidentLocationResponse(
         LocalDate birth,
         GenderEnum gender,
         RelativesEnum relative,
-        List<LocationResidentResponse> locations) {
+        List<LocationResponse> locations) {
 
     public static ResidentLocationResponse fromEntity(Resident resident) {
 
-        List<LocationResidentResponse> locations = new ArrayList<>();
+        List<LocationResponse> locations = new ArrayList<>();
         if (resident.getLocations() != null && !resident.getLocations().isEmpty()) {
-            locations = resident.getLocations().stream().map(LocationResidentResponse::fromEntity).collect(Collectors.toList());
+            locations = resident.getLocations().stream().map(LocationResponse::fromEntity).collect(Collectors.toList());
         }
         return new ResidentLocationResponse(
                 resident.getId(), resident.getCpf(), resident.getName(), resident.getBirth(), resident.getGender(),

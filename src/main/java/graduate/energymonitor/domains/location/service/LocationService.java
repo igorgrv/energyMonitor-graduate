@@ -39,10 +39,15 @@ public class LocationService {
     public LocationResidentResponse addLocation(LocationResidentRequest request) {
         Location location = request.toLocation();
 
-        List<Resident> residents = request.residentIds().stream().map(residentService::findById)
-                .collect(Collectors.toList());
-        location.setResidents(residents);
-        Location locationCreated = repository.save(location);
+        // List<Resident> residents = request.residentIds().stream().map(residentService::findById)
+        //         .collect(Collectors.toList());
+        // location.setResidents(residents);
+        
+        for (Long residentId : request.residentIds()) {
+            Resident resident = residentService.findById(residentId);
+            location.getResidents().add(resident);
+        }
+        Location locationCreated = repository.saveAndFlush(location);
         return LocationResidentResponse.fromEntity(locationCreated);
     }
 
