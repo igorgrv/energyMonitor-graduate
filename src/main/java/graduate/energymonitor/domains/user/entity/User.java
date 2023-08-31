@@ -1,20 +1,26 @@
 package graduate.energymonitor.domains.user.entity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
 import graduate.energymonitor.domains.resident.entity.Resident;
 import graduate.energymonitor.domains.user.controller.dto.UserRequest;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "USERS")
 @Entity
 public class User {
@@ -29,28 +35,12 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user")
-    private List<Resident> residents = new ArrayList<>();
-
-    public User() {
-    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Resident> residents = new HashSet<>();
 
     public User(UserRequest dto) {
         this.username = dto.username();
         this.password = dto.password();
-    }
-
-    public User(String username, String password, List<Resident> residents) {
-        this.username = username;
-        this.password = password;
-        this.residents = residents;
-    }
-
-    public User(Long id, String username, String password, List<Resident> residents) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.residents = residents;
     }
 
 }

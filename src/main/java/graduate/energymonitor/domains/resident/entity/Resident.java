@@ -1,7 +1,9 @@
 package graduate.energymonitor.domains.resident.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.resident.controller.dto.ResidentUserRequest;
 import graduate.energymonitor.domains.resident.entity.enums.GenderEnum;
 import graduate.energymonitor.domains.resident.entity.enums.RelativesEnum;
@@ -14,15 +16,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@EqualsAndHashCode
-@Table(name = "RESIDENT")
+@Data
 @Entity
-@Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "RESIDENT")
 public class Resident {
 
     @Id
@@ -49,20 +54,6 @@ public class Resident {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Resident() {
-    }
-
-    public Resident(Long id, String cpf, String name, LocalDate birth, GenderEnum gender, RelativesEnum relative,
-            User user) {
-        this.id = id;
-        this.cpf = cpf;
-        this.name = name;
-        this.birth = birth;
-        this.gender = gender;
-        this.relative = relative;
-        this.user = user;
-    }
-
     public Resident(ResidentUserRequest dto) {
         this.cpf = dto.cpf();
         this.name = dto.name();
@@ -71,13 +62,16 @@ public class Resident {
         this.relative = dto.relative();
     }
 
-    public Resident(ResidentUserRequest dto, User user) {
-        this.cpf = dto.cpf();
-        this.name = dto.name();
-        this.gender = dto.gender();
-        this.birth = dto.birth();
-        this.relative = dto.relative();
-        this.user = user;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Resident resident)) return false;
+
+        return getId().equals(resident.getId());
     }
 
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
 }

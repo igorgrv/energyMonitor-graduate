@@ -9,13 +9,12 @@ import graduate.energymonitor.domains.user.entity.User;
 public record UserResidentsResponse(Long id, String username, Set<ResidentResponse> residents) {
 
     public static UserResidentsResponse fromEntity(User user) {
-        Set<ResidentResponse> residents = new HashSet<>();
-        if (!user.getResidents().isEmpty()) {
-            user.getResidents().forEach(resident -> {
-                residents.add(ResidentResponse.fromEntity(resident));
-            });
+        Set<ResidentResponse> residentsResponse = new HashSet<>();
+        if (user.getResidents() != null && !user.getResidents().isEmpty()) {
+            user.getResidents().forEach(resident -> residentsResponse.add(new ResidentResponse(resident)));
         }
-        return new UserResidentsResponse(user.getId(), user.getUsername(), residents);
+
+        return new UserResidentsResponse(user.getId(), user.getUsername(), residentsResponse);
     }
 
 }

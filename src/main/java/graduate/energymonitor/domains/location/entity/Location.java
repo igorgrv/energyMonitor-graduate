@@ -1,8 +1,10 @@
 package graduate.energymonitor.domains.location.entity;
 
+import java.util.List;
 import java.util.UUID;
 
 import graduate.energymonitor.domains.location.entity.enums.BrazilStatesEnum;
+import graduate.energymonitor.domains.resident.entity.Resident;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,6 +46,9 @@ public class Location {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 2)
     private BrazilStatesEnum state;
+
+    @ManyToMany
+    private List<Resident> residents;
 
     public Location(String address, Integer number, String neighborhood, String city, BrazilStatesEnum state) {
         this.address = address;
