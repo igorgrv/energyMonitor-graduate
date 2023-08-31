@@ -1,6 +1,7 @@
 package graduate.energymonitor.domains.resident.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import graduate.energymonitor.domains.location.entity.Location;
@@ -27,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "RESIDENT")
+@Table(name = "RESIDENTS")
 public class Resident {
 
     @Id
@@ -55,7 +56,7 @@ public class Resident {
     private User user;
 
     @ManyToMany
-    private List<Location> locations;
+    private List<Location> locations = new ArrayList<>();
 
     public Resident(ResidentUserRequest dto) {
         this.cpf = dto.cpf();
@@ -67,8 +68,10 @@ public class Resident {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Resident resident)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Resident resident))
+            return false;
 
         return getId().equals(resident.getId());
     }

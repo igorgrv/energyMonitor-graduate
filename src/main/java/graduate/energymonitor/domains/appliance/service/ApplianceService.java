@@ -3,7 +3,7 @@ package graduate.energymonitor.domains.appliance.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class ApplianceService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Appliance> findById(UUID id) {
+    public Optional<Appliance> findById(Long id) {
         return repository.findById(id);
     }
 
@@ -38,14 +38,14 @@ public class ApplianceService {
     }
 
     @Transactional
-    public Appliance deleteAppliance(UUID id) {
+    public Appliance deleteAppliance(Long id) {
         Appliance appliance = findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
         repository.delete(appliance);
         return appliance;
     }
 
     @Transactional
-    public Appliance updateAppliance(UUID id, ApplianceDto updatedApplianceDto) {
+    public Appliance updateAppliance(Long id, ApplianceDto updatedApplianceDto) {
 
         Appliance appliance = findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
         Appliance updatedUser = updatedApplianceDto.returnEntityUpdated(appliance);

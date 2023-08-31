@@ -3,7 +3,6 @@ package graduate.energymonitor.domains.user.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
 import graduate.energymonitor.domains.resident.entity.Resident;
 import graduate.energymonitor.domains.user.controller.dto.UserRequest;
 import jakarta.persistence.CascadeType;

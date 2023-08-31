@@ -1,7 +1,6 @@
 package graduate.energymonitor.domains.location.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import graduate.energymonitor.domains.location.controller.dto.LocationRequest;
+import graduate.energymonitor.domains.location.controller.dto.LocationResidentRequest;
+import graduate.energymonitor.domains.location.controller.dto.LocationResidentResponse;
 import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.location.service.LocationService;
 import graduate.energymonitor.exception.NotFoundException;
@@ -46,59 +46,57 @@ import lombok.RequiredArgsConstructor;
 })
 public class LocationController {
 
-    private static final String LOCATION_NOT_FOUND = "Location not found";
     private final LocationService locationService;
 
     @Operation(summary = "Get all the locations", description = "Method for getting all the locations")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all locations", content = @Content(schema = @Schema(implementation = LocationRequest.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all locations", content = @Content(schema = @Schema(implementation = LocationResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
-    public ResponseEntity<List<Location>> getAllLocations() {
-        List<Location> locations = locationService.findAll();
+    public ResponseEntity<List<LocationResidentResponse>> getAllLocations() {
+        List<LocationResidentResponse> locations = locationService.findAll();
         return ResponseEntity.ok().body(locations);
     }
 
     @Operation(summary = "Get a location by ID", description = "Method to get a location based on the ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = LocationRequest.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = LocationResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @GetMapping("/{id_location}")
-    public ResponseEntity<Location> getLocationById(@PathVariable("id_location") UUID idLocation) {
-        Location location = locationService.findById(idLocation)
-                .orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
+    public ResponseEntity<LocationResidentResponse> getLocationById(@PathVariable("id_location") Long idLocation) {
+        LocationResidentResponse location = locationService.findById(idLocation);
         return ResponseEntity.ok().body(location);
     }
 
     @Operation(summary = "Create an location", description = "Method to crete an new location")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Location successfully created", content = @Content(schema = @Schema(implementation = Location.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Location successfully created", content = @Content(schema = @Schema(implementation = LocationResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PostMapping
-    public ResponseEntity<Location> createLocation(@Valid @RequestBody LocationRequest request) {
-        Location location = locationService.addLocation(request);
+    public ResponseEntity<LocationResidentResponse> createLocation(@Valid @RequestBody LocationResidentRequest request) {
+        LocationResidentResponse location = locationService.addLocation(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(location);
     }
 
     @Operation(summary = "Update a location", description = "Method to update an existing location")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Location successfully updated", content = @Content(schema = @Schema(implementation = Location.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Location successfully updated", content = @Content(schema = @Schema(implementation = LocationResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PutMapping("/{id_location}")
-    public ResponseEntity<Location> updateLocation(@PathVariable("id_location") UUID idLocation,
-            @Valid @RequestBody LocationRequest request) {
-        Location updatedLocation = locationService.updateLocation(idLocation, request);
+    public ResponseEntity<LocationResidentResponse> updateLocation(@PathVariable("id_location") Long idLocation,
+            @Valid @RequestBody LocationResidentRequest request) {
+        LocationResidentResponse updatedLocation = locationService.updateLocation(idLocation, request);
         return ResponseEntity.ok().body(updatedLocation);
 
     }
 
     @Operation(summary = "Delete a location", description = "Method to delete an existing location")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Location successfully deleted", content = @Content(schema = @Schema(implementation = Location.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Location successfully deleted", content = @Content(schema = @Schema(implementation = LocationResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @DeleteMapping("/{id_location}")
-    public ResponseEntity<Location> deleteLocation(@PathVariable("id_location") UUID idLocation) {
-        Location deletedLocation = locationService.deleteLocation(idLocation);
+    public ResponseEntity<LocationResidentResponse> deleteLocation(@PathVariable("id_location") Long idLocation) {
+        LocationResidentResponse deletedLocation = locationService.deleteLocation(idLocation);
         return ResponseEntity.ok().body(deletedLocation);
     }
 }

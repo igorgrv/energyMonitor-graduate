@@ -1,7 +1,5 @@
 package graduate.energymonitor.domains.appliance.entity;
 
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,8 +20,8 @@ import lombok.NoArgsConstructor;
 public class Appliance {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "name", nullable = false, length = 50)
     private String name;

@@ -1,7 +1,6 @@
 package graduate.energymonitor.domains.location.entity;
 
 import java.util.List;
-import java.util.UUID;
 
 import graduate.energymonitor.domains.location.entity.enums.BrazilStatesEnum;
 import graduate.energymonitor.domains.resident.entity.Resident;
@@ -16,11 +15,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "LOCATIONS")
@@ -28,8 +25,8 @@ import lombok.NoArgsConstructor;
 public class Location {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false, length = 100)
     private String address;
@@ -56,6 +53,21 @@ public class Location {
         this.neighborhood = neighborhood;
         this.city = city;
         this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Location location))
+            return false;
+
+        return getId().equals(location.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
     }
 
 }

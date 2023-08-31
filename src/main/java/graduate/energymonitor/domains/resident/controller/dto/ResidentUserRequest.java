@@ -15,6 +15,7 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+// This DTO is used by the ResidentController 
 @Schema(title = "ResidentUserRequest", description = "Object that represents a Resident and User data transfer object")
 public record ResidentUserRequest(
 
