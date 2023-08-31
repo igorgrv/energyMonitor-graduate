@@ -16,11 +16,6 @@ public record ResidentResponse(
         GenderEnum gender,
         RelativesEnum relative) {
 
-    public ResidentResponse(Resident resident) {
-        this(resident.getId(), resident.getCpf(), resident.getName(), resident.getBirth(), resident.getGender(),
-                resident.getRelative());
-    }
-
     public static ResidentResponse fromEntity(Resident resident) {
         return new ResidentResponse(
                 resident.getId(), resident.getCpf(), resident.getName(), resident.getBirth(), resident.getGender(),

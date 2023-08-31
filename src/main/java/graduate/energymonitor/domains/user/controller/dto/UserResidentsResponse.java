@@ -12,7 +12,7 @@ public record UserResidentsResponse(Long id, String username, Set<ResidentRespon
     public static UserResidentsResponse fromEntity(User user) {
         Set<ResidentResponse> residentsResponse = new HashSet<>();
         if (user.getResidents() != null && !user.getResidents().isEmpty()) {
-            user.getResidents().forEach(resident -> residentsResponse.add(new ResidentResponse(resident)));
+            user.getResidents().forEach(resident -> residentsResponse.add(ResidentResponse.fromEntity(resident)));
         }
 
         return new UserResidentsResponse(user.getId(), user.getUsername(), residentsResponse);
