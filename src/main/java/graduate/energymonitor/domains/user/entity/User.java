@@ -1,19 +1,17 @@
 package graduate.energymonitor.domains.user.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import graduate.energymonitor.domains.resident.entity.Resident;
 import graduate.energymonitor.domains.user.controller.dto.UserRequest;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @EqualsAndHashCode
@@ -32,7 +30,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private Set<Resident> residents = new HashSet<>();
+    private List<Resident> residents = new ArrayList<>();
 
     public User() {
     }
@@ -42,13 +40,13 @@ public class User {
         this.password = dto.password();
     }
 
-    public User(String username, String password, Set<Resident> residents) {
+    public User(String username, String password, List<Resident> residents) {
         this.username = username;
         this.password = password;
         this.residents = residents;
     }
 
-    public User(Long id, String username, String password, Set<Resident> residents) {
+    public User(Long id, String username, String password, List<Resident> residents) {
         this.id = id;
         this.username = username;
         this.password = password;
