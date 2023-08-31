@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import graduate.energymonitor.domains.location.controller.dto.LocationResidentRequest;
 import graduate.energymonitor.domains.location.controller.dto.LocationResidentResponse;
-import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.location.service.LocationService;
-import graduate.energymonitor.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
