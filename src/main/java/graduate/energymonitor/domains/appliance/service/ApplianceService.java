@@ -12,7 +12,6 @@ import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocation
 import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationResidentResponse;
 import graduate.energymonitor.domains.appliance.entity.Appliance;
 import graduate.energymonitor.domains.appliance.repository.ApplianceRepository;
-import graduate.energymonitor.domains.location.controller.dto.LocationResidentResponse;
 import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.location.service.LocationService;
 import graduate.energymonitor.domains.resident.entity.Resident;
@@ -59,19 +58,20 @@ public class ApplianceService {
     }
 
     @Transactional
-    public Appliance deleteAppliance(Long id) {
+    public ApplianceDto deleteAppliance(Long id) {
         Appliance appliance = repository.findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
         repository.delete(appliance);
-        return appliance;
+        return new ApplianceDto(appliance);
     }
 
     @Transactional
-    public Appliance updateAppliance(Long id, ApplianceDto updatedApplianceDto) {
+    public ApplianceDto updateAppliance(Long id, ApplianceDto updatedApplianceDto) {
 
         Appliance appliance = repository.findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
         Appliance updatedUser = updatedApplianceDto.returnEntityUpdated(appliance);
+        repository.save(updatedUser);
 
-        return repository.save(updatedUser);
+        return new ApplianceDto(updatedUser);
     }
 
 }

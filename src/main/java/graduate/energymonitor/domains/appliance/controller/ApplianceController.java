@@ -66,7 +66,8 @@ public class ApplianceController {
             @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ApplianceLocationResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @GetMapping("/{id_appliance}")
-    public ResponseEntity<ApplianceLocationResidentResponse> getApplianceById(@PathVariable("id_appliance") Long idAppliance) {
+    public ResponseEntity<ApplianceLocationResidentResponse> getApplianceById(
+            @PathVariable("id_appliance") Long idAppliance) {
         ApplianceLocationResidentResponse appliance = applianceService.findById(idAppliance);
         return ResponseEntity.ok().body(appliance);
     }
@@ -76,7 +77,8 @@ public class ApplianceController {
             @ApiResponse(responseCode = "200", description = "SUCCESS - Appliance successfully created", content = @Content(schema = @Schema(implementation = ApplianceLocationResidentRequest.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PostMapping
-    public ResponseEntity<ApplianceLocationResidentResponse> createAppliance(@Valid @RequestBody ApplianceLocationResidentRequest request) {
+    public ResponseEntity<ApplianceLocationResidentResponse> createAppliance(
+            @Valid @RequestBody ApplianceLocationResidentRequest request) {
         ApplianceLocationResidentResponse appliance = applianceService.addAppliance(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(appliance);
     }
@@ -86,9 +88,9 @@ public class ApplianceController {
             @ApiResponse(responseCode = "200", description = "SUCCESS - Appliance successfully updated", content = @Content(schema = @Schema(implementation = ApplianceDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PutMapping("/{id_appliance}")
-    public ResponseEntity<Appliance> updateAppliance(@PathVariable("id_appliance") Long idAppliance,
+    public ResponseEntity<ApplianceDto> updateAppliance(@PathVariable("id_appliance") Long idAppliance,
             @Valid @RequestBody ApplianceDto request) {
-        Appliance updatedAppliance = applianceService.updateAppliance(idAppliance, request);
+        ApplianceDto updatedAppliance = applianceService.updateAppliance(idAppliance, request);
         return ResponseEntity.ok().body(updatedAppliance);
     }
 
@@ -97,8 +99,8 @@ public class ApplianceController {
             @ApiResponse(responseCode = "200", description = "SUCCESS - Appliance successfully deleted", content = @Content(schema = @Schema(implementation = ApplianceDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @DeleteMapping("/{id_appliance}")
-    public ResponseEntity<Appliance> deleteAppliance(@PathVariable("id_appliance") Long idAppliance) {
-        Appliance deletedAppliance = applianceService.deleteAppliance(idAppliance);
+    public ResponseEntity<ApplianceDto> deleteAppliance(@PathVariable("id_appliance") Long idAppliance) {
+        ApplianceDto deletedAppliance = applianceService.deleteAppliance(idAppliance);
         return ResponseEntity.ok().body(deletedAppliance);
     }
 }

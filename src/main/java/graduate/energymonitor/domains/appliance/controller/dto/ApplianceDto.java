@@ -28,6 +28,10 @@ public record ApplianceDto(
     @NotNull(message = "watts is mandatory")
     Integer watts) {
 
+    public ApplianceDto(Appliance appliance) {
+        this(appliance.getName(), appliance.getModel(), appliance.getBrand(), appliance.getWatts());
+    }
+
     public Appliance toAppliance() {
         return new Appliance(name, model, brand, watts);
     }
