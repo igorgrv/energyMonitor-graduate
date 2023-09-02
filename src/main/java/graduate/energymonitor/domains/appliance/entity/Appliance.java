@@ -1,16 +1,23 @@
 package graduate.energymonitor.domains.appliance.entity;
 
-import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationDto;
+import java.util.ArrayList;
+import java.util.List;
+
+import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationResidentRequest;
 import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.resident.entity.Resident;
-import graduate.energymonitor.domains.user.entity.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -39,6 +46,9 @@ public class Appliance {
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
+    @ManyToMany(mappedBy = "appliances")
+    private List<Resident> residents = new ArrayList<>();
+
     public Appliance(String name, String model, String brand, Integer watts) {
         this.name = name;
         this.model = model;
@@ -46,7 +56,7 @@ public class Appliance {
         this.watts = watts;
     }
 
-    public Appliance(ApplianceLocationDto applianceLocationDto) {
+    public Appliance(ApplianceLocationResidentRequest applianceLocationDto) {
         this.name = applianceLocationDto.name();
         this.model = applianceLocationDto.model();
         this.brand = applianceLocationDto.brand();

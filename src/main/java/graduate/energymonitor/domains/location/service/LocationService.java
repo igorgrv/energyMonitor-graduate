@@ -35,19 +35,20 @@ public class LocationService {
         return LocationResidentResponse.fromEntity(location);
     }
 
+    @Transactional(readOnly = true)
+    public Location findByIdLocation(Long id) {
+        return repository.findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
+    }
+
     @Transactional
     public LocationResidentResponse addLocation(LocationResidentRequest request) {
         Location location = request.toLocation();
 
-        // List<Resident> residents = request.residentIds().stream().map(residentService::findById)
-        //         .collect(Collectors.toList());
-        // location.setResidents(residents);
-        
-        for (Long residentId : request.residentIds()) {
-            Resident resident = residentService.findById(residentId);
-            location.getResidents().add(resident);
-        }
-        Location locationCreated = repository.saveAndFlush(location);
+        List<Resident> residents = request.residentIds().stream().map(residentService::findById)
+                .collect(Collectors.toList());
+        location.setResidents(residents);
+
+        Location locationCreated = repository.save(location);
         return LocationResidentResponse.fromEntity(locationCreated);
     }
 

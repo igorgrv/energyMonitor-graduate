@@ -1,13 +1,16 @@
 package graduate.energymonitor.domains.appliance.controller.dto;
 
+import java.util.List;
+
 import graduate.energymonitor.domains.appliance.entity.Appliance;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Schema(title = "ApplianceDTO", description = "Object that represents a data transfer object for an appliance")
-public record ApplianceLocationDto(
+public record ApplianceLocationResidentRequest(
     
     @Schema(description = "Name to identify the appliance", example = "XBOX")
     @NotBlank(message = "name is mandatory")
@@ -29,8 +32,11 @@ public record ApplianceLocationDto(
     Integer watts,
 
     @Schema(description = "Number to identify the location", example = "1")
-    @NotNull(message = "location Id is mandatory")
-    Long locationId) {
+    @NotNull(message = "locationId is mandatory")
+    Long locationId,
+    
+    @Schema(description = "It's a list of resident IDs that is using this appliance", example = "[1,2]")
+    @NotEmpty(message = "residentIds is mandatory") List<Long> residentIds) {
 
     public Appliance toAppliance() {
         return new Appliance(name, model, brand, watts);

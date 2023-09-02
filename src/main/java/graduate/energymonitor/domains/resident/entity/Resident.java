@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import graduate.energymonitor.domains.appliance.entity.Appliance;
 import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.resident.controller.dto.ResidentUserRequest;
 import graduate.energymonitor.domains.resident.entity.enums.GenderEnum;
@@ -17,7 +18,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -57,12 +57,10 @@ public class Resident {
     private User user;
 
     @ManyToMany
-    @JoinTable(
-        name = "tb_resident_location",
-        joinColumns = @JoinColumn(name = "resident_id"),
-        inverseJoinColumns = @JoinColumn(name = "location_id")
-    )
     private List<Location> locations = new ArrayList<>();
+
+    @ManyToMany
+    private List<Appliance> appliances = new ArrayList<>();
 
     public Resident(ResidentUserRequest dto) {
         this.cpf = dto.cpf();

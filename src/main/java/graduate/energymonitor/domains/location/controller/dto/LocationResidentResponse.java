@@ -23,18 +23,10 @@ public record LocationResidentResponse(
         
         List<ResidentResponse> residents = new ArrayList<>();
         if (location.getResidents() != null && !location.getResidents().isEmpty()) {
-            residents = location.getResidents().stream().map(ResidentResponse::fromEntity).collect(Collectors.toList());
-        }
-
-        return new LocationResidentResponse(location.getAddress(), location.getNeighborhood(), location.getCity(),
-                location.getState(), location.getNumber(), residents);
-    }
-
-    public static LocationResidentResponse test(Location location) {
-        
-        List<ResidentResponse> residents = new ArrayList<>();
-        if (location.getResidents() != null && !location.getResidents().isEmpty()) {
-            residents = location.getResidents().stream().map(ResidentResponse::fromEntity).collect(Collectors.toList());
+            residents = location.getResidents()
+                .stream()
+                .map(ResidentResponse::fromEntity)
+                .collect(Collectors.toList());
         }
 
         return new LocationResidentResponse(location.getAddress(), location.getNeighborhood(), location.getCity(),
