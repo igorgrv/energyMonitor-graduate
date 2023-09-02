@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Schema(title = "ApplianceDTO", description = "Object that represents a data transfer object for an appliance")
-public record ApplianceDto(
+public record ApplianceResponse(
     
     @Schema(description = "Name to identify the appliance", example = "XBOX")
     @NotBlank(message = "name is mandatory")
@@ -28,8 +28,8 @@ public record ApplianceDto(
     @NotNull(message = "watts is mandatory")
     Integer watts) {
 
-    public ApplianceDto(Appliance appliance) {
-        this(appliance.getName(), appliance.getModel(), appliance.getBrand(), appliance.getWatts());
+     public static ApplianceResponse fromEntity(Appliance appliance) {
+        return new ApplianceResponse(appliance.getName(), appliance.getModel(), appliance.getBrand(), appliance.getWatts());
     }
 
     public Appliance toAppliance() {

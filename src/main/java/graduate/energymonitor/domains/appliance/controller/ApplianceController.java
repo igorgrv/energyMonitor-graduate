@@ -3,9 +3,6 @@ package graduate.energymonitor.domains.appliance.controller;
 
 import java.util.List;
 
-import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationResidentRequest;
-import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationResidentResponse;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import graduate.energymonitor.domains.appliance.controller.dto.ApplianceDto;
-import graduate.energymonitor.domains.appliance.entity.Appliance;
+import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationResidentRequest;
+import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationResidentResponse;
+import graduate.energymonitor.domains.appliance.controller.dto.ApplianceResponse;
 import graduate.energymonitor.domains.appliance.service.ApplianceService;
-import graduate.energymonitor.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -85,22 +82,22 @@ public class ApplianceController {
 
     @Operation(summary = "Update a appliance", description = "Method to update an existing appliance")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Appliance successfully updated", content = @Content(schema = @Schema(implementation = ApplianceDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Appliance successfully updated", content = @Content(schema = @Schema(implementation = ApplianceResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PutMapping("/{id_appliance}")
-    public ResponseEntity<ApplianceDto> updateAppliance(@PathVariable("id_appliance") Long idAppliance,
-            @Valid @RequestBody ApplianceDto request) {
-        ApplianceDto updatedAppliance = applianceService.updateAppliance(idAppliance, request);
+    public ResponseEntity<ApplianceResponse> updateAppliance(@PathVariable("id_appliance") Long idAppliance,
+            @Valid @RequestBody ApplianceResponse request) {
+        ApplianceResponse updatedAppliance = applianceService.updateAppliance(idAppliance, request);
         return ResponseEntity.ok().body(updatedAppliance);
     }
 
     @Operation(summary = "Delete a appliance", description = "Method to delete an existing appliance")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Appliance successfully deleted", content = @Content(schema = @Schema(implementation = ApplianceDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Appliance successfully deleted", content = @Content(schema = @Schema(implementation = ApplianceResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @DeleteMapping("/{id_appliance}")
-    public ResponseEntity<ApplianceDto> deleteAppliance(@PathVariable("id_appliance") Long idAppliance) {
-        ApplianceDto deletedAppliance = applianceService.deleteAppliance(idAppliance);
+    public ResponseEntity<ApplianceResponse> deleteAppliance(@PathVariable("id_appliance") Long idAppliance) {
+        ApplianceResponse deletedAppliance = applianceService.deleteAppliance(idAppliance);
         return ResponseEntity.ok().body(deletedAppliance);
     }
 }

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import graduate.energymonitor.domains.appliance.controller.dto.ApplianceDto;
+import graduate.energymonitor.domains.appliance.controller.dto.ApplianceResponse;
 import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationResidentRequest;
 import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationResidentResponse;
 import graduate.energymonitor.domains.appliance.entity.Appliance;
@@ -58,20 +58,20 @@ public class ApplianceService {
     }
 
     @Transactional
-    public ApplianceDto deleteAppliance(Long id) {
+    public ApplianceResponse deleteAppliance(Long id) {
         Appliance appliance = repository.findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
         repository.delete(appliance);
-        return new ApplianceDto(appliance);
+        return ApplianceResponse.fromEntity(appliance);
     }
 
     @Transactional
-    public ApplianceDto updateAppliance(Long id, ApplianceDto updatedApplianceDto) {
+    public ApplianceResponse updateAppliance(Long id, ApplianceResponse updatedApplianceDto) {
 
         Appliance appliance = repository.findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
         Appliance updatedUser = updatedApplianceDto.returnEntityUpdated(appliance);
         repository.save(updatedUser);
 
-        return new ApplianceDto(updatedUser);
+        return ApplianceResponse.fromEntity(updatedUser);
     }
 
 }
