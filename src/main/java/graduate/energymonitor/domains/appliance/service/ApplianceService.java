@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 
+import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationDto;
+import graduate.energymonitor.domains.location.controller.dto.LocationResidentResponse;
+import graduate.energymonitor.domains.location.entity.Location;
+import graduate.energymonitor.domains.location.service.LocationService;
 import org.springframework.stereotype.Service;
 
 import graduate.energymonitor.domains.appliance.controller.dto.ApplianceDto;
@@ -19,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class ApplianceService {
 
     private final ApplianceRepository repository;
+    private final LocationService locationService;
     private static final String APPLIANCE_NOT_FOUND = "Appliance not found";
 
     @Transactional(readOnly = true)
@@ -32,8 +37,19 @@ public class ApplianceService {
     }
 
     @Transactional
-    public Appliance addAppliance(ApplianceDto request) {
-        Appliance appliance = request.toAppliance();
+    public Appliance addAppliance(ApplianceLocationDto request) {
+        Appliance appliance = request.toEntity();
+
+        LocationResidentResponse locationResidentResponse = locationService.findById(request.locationId());
+        Location location = new Location(
+             request.locationId()
+            , locationResidentResponse.address()
+            , locationResidentResponse.number()
+            , locationResidentResponse.neighborhood()
+            , locationResidentResponse.city()
+            , locationResidentResponse.state());
+        appliance.setLocation(location);
+
         return repository.save(appliance);
     }
 

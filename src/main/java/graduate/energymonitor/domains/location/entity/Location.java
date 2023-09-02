@@ -1,19 +1,14 @@
 package graduate.energymonitor.domains.location.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import graduate.energymonitor.domains.appliance.entity.Appliance;
 import graduate.energymonitor.domains.location.entity.enums.BrazilStatesEnum;
 import graduate.energymonitor.domains.resident.entity.Resident;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -48,7 +43,19 @@ public class Location {
     @ManyToMany(mappedBy = "locations")
     private List<Resident> residents = new ArrayList<>();
 
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
+    private Set<Appliance> appliances = new HashSet<>();
+
     public Location(String address, Integer number, String neighborhood, String city, BrazilStatesEnum state) {
+        this.address = address;
+        this.number = number;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.state = state;
+    }
+
+    public Location(Long id, String address, Integer number, String neighborhood, String city, BrazilStatesEnum state) {
+        this.id = id;
         this.address = address;
         this.number = number;
         this.neighborhood = neighborhood;

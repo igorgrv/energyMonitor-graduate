@@ -3,6 +3,7 @@ package graduate.energymonitor.domains.appliance.controller;
 
 import java.util.List;
 
+import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -75,7 +76,7 @@ public class ApplianceController {
             @ApiResponse(responseCode = "200", description = "SUCCESS - Appliance successfully created", content = @Content(schema = @Schema(implementation = Appliance.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PostMapping
-    public ResponseEntity<Appliance> createAppliance(@Valid @RequestBody ApplianceDto request) {
+    public ResponseEntity<Appliance> createAppliance(@Valid @RequestBody ApplianceLocationDto request) {
         Appliance appliance = applianceService.addAppliance(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(appliance);
     }
