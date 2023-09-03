@@ -2,6 +2,8 @@ package graduate.energymonitor.domains.location.controller;
 
 import java.util.List;
 
+import graduate.energymonitor.domains.location.controller.dto.LocationResponse;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -48,11 +50,11 @@ public class LocationController {
 
     @Operation(summary = "Get all the locations", description = "Method for getting all the locations")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all locations", content = @Content(schema = @Schema(implementation = LocationResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all locations", content = @Content(array = @ArraySchema(schema = @Schema(implementation = LocationResponse.class)), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
-    public ResponseEntity<List<LocationResidentResponse>> getAllLocations() {
-        List<LocationResidentResponse> locations = locationService.findAll();
+    public ResponseEntity<List<LocationResponse>> getAllLocations() {
+        List<LocationResponse> locations = locationService.findAll();
         return ResponseEntity.ok().body(locations);
     }
 

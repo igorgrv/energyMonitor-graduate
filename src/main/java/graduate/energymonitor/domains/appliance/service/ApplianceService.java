@@ -29,9 +29,9 @@ public class ApplianceService {
     private static final String APPLIANCE_NOT_FOUND = "Appliance not found";
 
     @Transactional(readOnly = true)
-    public List<ApplianceLocationResidentResponse> findAll() {
+    public List<ApplianceResponse> findAll() {
         List<Appliance> appliances = repository.findAll();
-        return appliances.stream().map(ApplianceLocationResidentResponse::fromEntity).collect(Collectors.toList());
+        return appliances.stream().map(ApplianceResponse::fromEntity).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

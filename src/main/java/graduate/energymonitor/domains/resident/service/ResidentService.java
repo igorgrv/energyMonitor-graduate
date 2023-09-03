@@ -4,6 +4,7 @@ package graduate.energymonitor.domains.resident.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +28,9 @@ public class ResidentService {
     private static final String RESIDENT_NOT_FOUND = "Resident not found";
 
     @Transactional(readOnly = true)
-    public List<ResidentUserLocationResponse> findAll() {
+    public List<ResidentResponse> findAll() {
         List<Resident> residents = repository.findAll();
-        return residents.stream().map(ResidentUserLocationResponse::fromEntity).collect(Collectors.toList());
+        return residents.stream().map(ResidentResponse::fromEntity).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

@@ -6,30 +6,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-@Schema(title = "ApplianceDTO", description = "Object that represents a data transfer object for an appliance")
-public record ApplianceResponse(
-    
-    @Schema(description = "Name to identify the appliance", example = "XBOX")
-    @NotBlank(message = "name is mandatory")
-    @Size(min = 2, max = 50, message = "size must be between {min} and {max}")
+@Schema(title = "ApplianceResponse", description = "Object that represents a data transfer object for an appliance")
+public record ApplianceResponse(Long id,
     String name,
-    
-    @Schema(description = "Name to identify the appliance model", example = "Series X")
-    @NotBlank(message = "model is mandatory")
-    @Size(min = 2, max = 50, message = "size must be between {min} and {max}")
     String model,
-
-    @Schema(description = "Name to identify the appliance brand", example = "Microsoft")
-    @NotBlank(message = "brand is mandatory")
-    @Size(min = 2, max = 50, message = "size must be between {min} and {max}")
     String brand,
-    
-    @Schema(description = "Number to identify the appliance watts", example = "1000")
-    @NotNull(message = "watts is mandatory")
     Integer watts) {
 
      public static ApplianceResponse fromEntity(Appliance appliance) {
-        return new ApplianceResponse(appliance.getName(), appliance.getModel(), appliance.getBrand(), appliance.getWatts());
+        return new ApplianceResponse(appliance.getId(), appliance.getName(), appliance.getModel(), appliance.getBrand(), appliance.getWatts());
     }
 
     public Appliance toAppliance() {

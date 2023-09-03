@@ -51,11 +51,11 @@ public class UserController {
 
     @Operation(summary = "Get all the users", description = "Method for getting all the users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Users", content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserResidentsResponse.class)), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Users", content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserResponse.class)), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
-    public ResponseEntity<List<UserResidentsResponse>> getAllUsers() {
-        List<UserResidentsResponse> users = service.findAll();
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<UserResponse> users = service.findAll();
         return ResponseEntity.ok().body(users);
     }
 

@@ -25,10 +25,9 @@ public class UserService {
     private static final String USER_NOT_FOUND = "User not found";
 
     @Transactional(readOnly = true)
-    public List<UserResidentsResponse> findAll() {
+    public List<UserResponse> findAll() {
         List<User> users = repository.findAll();
-
-        return users.stream().map(UserResidentsResponse::fromEntity).collect(Collectors.toList());
+        return users.stream().map(UserResponse::fromEntity).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

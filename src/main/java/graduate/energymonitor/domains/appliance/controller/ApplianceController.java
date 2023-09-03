@@ -3,6 +3,7 @@ package graduate.energymonitor.domains.appliance.controller;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -50,11 +51,11 @@ public class ApplianceController {
 
     @Operation(summary = "Get all the appliances", description = "Method for getting all the appliances")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all appliances", content = @Content(schema = @Schema(implementation = ApplianceLocationResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all appliances", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ApplianceResponse.class)), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
-    public ResponseEntity<List<ApplianceLocationResidentResponse>> getAllAppliances() {
-        List<ApplianceLocationResidentResponse> appliances = applianceService.findAll();
+    public ResponseEntity<List<ApplianceResponse>> getAllAppliances() {
+        List<ApplianceResponse> appliances = applianceService.findAll();
         return ResponseEntity.ok().body(appliances);
     }
 

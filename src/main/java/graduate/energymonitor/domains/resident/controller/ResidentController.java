@@ -3,6 +3,8 @@ package graduate.energymonitor.domains.resident.controller;
 
 import java.util.List;
 
+import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -50,11 +52,11 @@ public class ResidentController {
 
     @Operation(summary = "Get all the residents", description = "Method for getting all the residents")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Residents", content = @Content(schema = @Schema(implementation = ResidentUserLocationResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "SUCCESS - List of all Residents", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ResidentResponse.class)), mediaType = MediaType.APPLICATION_JSON_VALUE))
     })
     @GetMapping
-    public ResponseEntity<List<ResidentUserLocationResponse>> getAllResidents() {
-        List<ResidentUserLocationResponse> residents = residentService.findAll();
+    public ResponseEntity<List<ResidentResponse>> getAllResidents() {
+        List<ResidentResponse> residents = residentService.findAll();
         return ResponseEntity.ok().body(residents);
     }
 
