@@ -82,22 +82,22 @@ public class ResidentController {
 
     @Operation(summary = "Update a resident", description = "Method to update anexisting resident")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Resident successfully updated", content = @Content(schema = @Schema(implementation = ResidentUserLocationResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Resident successfully updated", content = @Content(schema = @Schema(implementation = ResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @PutMapping("{id_resident}")
-    public ResponseEntity<ResidentUserLocationResponse> updateResident(@PathVariable("id_resident") Long id,
+    public ResponseEntity<ResidentResponse> updateResident(@PathVariable("id_resident") Long id,
             @Valid @RequestBody ResidentUserRequest request) {
-        ResidentUserLocationResponse updatedResident = residentService.updateResident(id, request);
+        ResidentResponse updatedResident = residentService.updateResident(id, request);
         return ResponseEntity.ok().body(updatedResident);
     }
 
     @Operation(summary = "Delete a resident", description = "Method to delete an existing resident")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Resident successfully deleted", content = @Content(schema = @Schema(implementation = ResidentUserLocationResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Resident successfully deleted", content = @Content(schema = @Schema(implementation = ResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @DeleteMapping("{id_resident}")
-    public ResponseEntity<ResidentUserLocationResponse> deleteResident(@PathVariable("id_resident") Long id) {
-        ResidentUserLocationResponse deletedResident = residentService.deleteResident(id);
+    public ResponseEntity<ResidentResponse> deleteResident(@PathVariable("id_resident") Long id) {
+        ResidentResponse deletedResident = residentService.deleteResident(id);
         return ResponseEntity.ok().body(deletedResident);
     }
 }

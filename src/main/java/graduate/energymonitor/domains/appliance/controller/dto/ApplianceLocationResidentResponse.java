@@ -18,6 +18,7 @@ public record ApplianceLocationResidentResponse(
         Integer watts,
         Long locationId,
         Double totalConsumption,
+        List<ConsumptionResponse> consumptions,
         List<ResidentResponse> residents) {
 
     public static ApplianceLocationResidentResponse fromEntity(Appliance appliance) {
@@ -41,7 +42,7 @@ public record ApplianceLocationResidentResponse(
         }
 
         return new ApplianceLocationResidentResponse(appliance.getId(), appliance.getName(), appliance.getModel(), appliance.getBrand(),
-                appliance.getWatts(), location.id(), totalConsumption, residents);
+                appliance.getWatts(), location.id(), totalConsumption,consumptions, residents);
     }
 
 }

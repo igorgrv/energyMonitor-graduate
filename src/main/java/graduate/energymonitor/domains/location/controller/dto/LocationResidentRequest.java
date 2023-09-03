@@ -27,7 +27,7 @@ public record LocationResidentRequest(
         @Schema(description = "Number of the house", example = "10")
         @NotNull(message = "number is mandatory") Integer number,
         
-        @Schema(description = "It's a list of resident IDs that live in this Location", example = "[1,2]")
+        @Schema(description = "It's a list of resident IDs that live in this Location", example = "[1]")
         @NotEmpty(message = "residentIds is mandatory") List<Long> residentIds) {
 
     public Location toLocation() {

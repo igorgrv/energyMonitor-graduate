@@ -56,21 +56,20 @@ public class ResidentService {
     }
 
     @Transactional
-    public ResidentUserLocationResponse deleteResident(Long id) {
+    public ResidentResponse deleteResident(Long id) {
         Resident resident = repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
         repository.delete(resident);
-        return ResidentUserLocationResponse.fromEntity(resident);
+        return ResidentResponse.fromEntity(resident);
     }
 
     @Transactional
-    public ResidentUserLocationResponse updateResident(Long id, ResidentUserRequest updatedResidentDto) {
+    public ResidentResponse updateResident(Long id, ResidentUserRequest updatedResidentDto) {
 
         Resident existingResident = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
         Resident updatedResident = updatedResidentDto.returnEntityUpdated(existingResident);
-
         Resident residentUpdated = repository.save(updatedResident);
-        return ResidentUserLocationResponse.fromEntity(residentUpdated);
+        return ResidentResponse.fromEntity(residentUpdated);
     }
 
 }

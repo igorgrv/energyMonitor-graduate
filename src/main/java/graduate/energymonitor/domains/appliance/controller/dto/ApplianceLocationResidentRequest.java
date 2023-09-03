@@ -35,7 +35,7 @@ public record ApplianceLocationResidentRequest(
     @NotNull(message = "locationId is mandatory")
     Long locationId,
     
-    @Schema(description = "It's a list of resident IDs that is using this appliance", example = "[1,2]")
+    @Schema(description = "It's a list of resident IDs that is using this appliance", example = "[1]")
     @NotEmpty(message = "residentIds is mandatory") List<Long> residentIds) {
 
 
