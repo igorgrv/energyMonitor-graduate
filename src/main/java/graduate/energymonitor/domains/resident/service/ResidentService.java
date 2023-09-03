@@ -4,13 +4,10 @@ package graduate.energymonitor.domains.resident.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
+import graduate.energymonitor.domains.resident.controller.dto.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import graduate.energymonitor.domains.resident.controller.dto.ResidentUserRequest;
-import graduate.energymonitor.domains.resident.controller.dto.ResidentUserResponse;
-import graduate.energymonitor.domains.resident.controller.dto.ResidentUserLocationResponse;
 import graduate.energymonitor.domains.resident.entity.Resident;
 import graduate.energymonitor.domains.resident.repository.ResidentRepository;
 import graduate.energymonitor.domains.user.entity.User;
@@ -34,9 +31,9 @@ public class ResidentService {
     }
 
     @Transactional(readOnly = true)
-    public ResidentUserLocationResponse findByIdResponse(Long id) {
+    public ResidentUserLocationApplianceResponse findByIdResponse(Long id) {
         Resident resident = repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
-        return ResidentUserLocationResponse.fromEntity(resident);
+        return ResidentUserLocationApplianceResponse.fromEntity(resident);
     }
 
     @Transactional(readOnly = true)

@@ -2,6 +2,7 @@ package graduate.energymonitor.domains.location.controller;
 
 import java.util.List;
 
+import graduate.energymonitor.domains.location.controller.dto.LocationResidentApplianceResponse;
 import graduate.energymonitor.domains.location.controller.dto.LocationResponse;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import org.springframework.http.HttpStatus;
@@ -60,11 +61,11 @@ public class LocationController {
 
     @Operation(summary = "Get a location by ID", description = "Method to get a location based on the ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = LocationResidentResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = LocationResidentApplianceResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @GetMapping("/{id_location}")
-    public ResponseEntity<LocationResidentResponse> getLocationById(@PathVariable("id_location") Long idLocation) {
-        LocationResidentResponse location = locationService.findById(idLocation);
+    public ResponseEntity<LocationResidentApplianceResponse> getLocationById(@PathVariable("id_location") Long idLocation) {
+        LocationResidentApplianceResponse location = locationService.findById(idLocation);
         return ResponseEntity.ok().body(location);
     }
 

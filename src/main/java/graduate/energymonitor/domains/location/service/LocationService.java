@@ -3,6 +3,7 @@ package graduate.energymonitor.domains.location.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import graduate.energymonitor.domains.location.controller.dto.LocationResidentApplianceResponse;
 import graduate.energymonitor.domains.location.controller.dto.LocationResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,9 +32,9 @@ public class LocationService {
     }
 
     @Transactional(readOnly = true)
-    public LocationResidentResponse findById(Long id) {
+    public LocationResidentApplianceResponse findById(Long id) {
         Location location = repository.findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
-        return LocationResidentResponse.fromEntity(location);
+        return LocationResidentApplianceResponse.fromEntity(location);
     }
 
     @Transactional(readOnly = true)

@@ -3,7 +3,7 @@ package graduate.energymonitor.domains.resident.controller;
 
 import java.util.List;
 
-import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
+import graduate.energymonitor.domains.resident.controller.dto.*;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import graduate.energymonitor.domains.resident.controller.dto.ResidentUserRequest;
-import graduate.energymonitor.domains.resident.controller.dto.ResidentUserResponse;
-import graduate.energymonitor.domains.resident.controller.dto.ResidentUserLocationResponse;
 import graduate.energymonitor.domains.resident.service.ResidentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -62,11 +59,11 @@ public class ResidentController {
 
     @Operation(summary = "Get a resident by ID", description = "Method to get a resident based on the ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ResidentUserLocationResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS", content = @Content(schema = @Schema(implementation = ResidentUserLocationApplianceResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
     })
     @GetMapping("{id_resident}")
-    public ResponseEntity<ResidentUserLocationResponse> getResidentById(@PathVariable("id_resident") Long id) {
-        ResidentUserLocationResponse resident = residentService.findByIdResponse(id);
+    public ResponseEntity<ResidentUserLocationApplianceResponse> getResidentById(@PathVariable("id_resident") Long id) {
+        ResidentUserLocationApplianceResponse resident = residentService.findByIdResponse(id);
         return ResponseEntity.ok().body(resident);
     }
 

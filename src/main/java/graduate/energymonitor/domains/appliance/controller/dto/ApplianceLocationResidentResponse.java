@@ -7,11 +7,14 @@ import graduate.energymonitor.domains.appliance.entity.Appliance;
 import graduate.energymonitor.domains.location.controller.dto.LocationResponse;
 import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
 
-public record ApplianceLocationResidentResponse(String name,
+public record ApplianceLocationResidentResponse(
+        Long id,
+        String name,
         String model,
         String brand,
         Integer watts,
-        LocationResponse location,
+        Long locationId,
+        Long consumption,
         List<ResidentResponse> residents) {
 
     public static ApplianceLocationResidentResponse fromEntity(Appliance appliance) {
@@ -24,8 +27,8 @@ public record ApplianceLocationResidentResponse(String name,
                 .map(ResidentResponse::fromEntity)
                 .collect(Collectors.toList());
 
-        return new ApplianceLocationResidentResponse(appliance.getName(), appliance.getModel(), appliance.getBrand(),
-                appliance.getWatts(), location, residents);
+        return new ApplianceLocationResidentResponse(appliance.getId(), appliance.getName(), appliance.getModel(), appliance.getBrand(),
+                appliance.getWatts(), location.id(), (long) 10.0, residents);
     }
 
 }
