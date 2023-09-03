@@ -3,6 +3,9 @@ package graduate.energymonitor.domains.appliance.controller;
 
 import java.util.List;
 
+import graduate.energymonitor.domains.consumption.dto.ConsumptionApplianceRequest;
+import graduate.energymonitor.domains.consumption.dto.ConsumptionApplianceResponse;
+import graduate.energymonitor.domains.consumption.service.ConsumptionService;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,6 +51,7 @@ import lombok.RequiredArgsConstructor;
 public class ApplianceController {
 
     private final ApplianceService applianceService;
+    private final ConsumptionService consumptionService;
 
     @Operation(summary = "Get all the appliances", description = "Method for getting all the appliances")
     @ApiResponses(value = {
@@ -79,6 +83,17 @@ public class ApplianceController {
             @Valid @RequestBody ApplianceLocationResidentRequest request) {
         ApplianceLocationResidentResponse appliance = applianceService.addAppliance(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(appliance);
+    }
+
+    @Operation(summary = "Save an appliance consumption", description = "Method to save an new consumption")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "SUCCESS - Consumption successfully saved", content = @Content(schema = @Schema(implementation = ConsumptionApplianceResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+    })
+    @PostMapping("/consumptions")
+    public ResponseEntity<ConsumptionApplianceResponse> saveConsumption(
+        @Valid @RequestBody ConsumptionApplianceRequest request) {
+        ConsumptionApplianceResponse consumption = consumptionService.saveConsumption(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(consumption);
     }
 
     @Operation(summary = "Update a appliance", description = "Method to update an existing appliance")
