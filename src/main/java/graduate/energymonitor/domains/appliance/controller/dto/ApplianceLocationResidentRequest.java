@@ -38,9 +38,6 @@ public record ApplianceLocationResidentRequest(
     @Schema(description = "It's a list of resident IDs that is using this appliance", example = "[1,2]")
     @NotEmpty(message = "residentIds is mandatory") List<Long> residentIds) {
 
-    public Appliance toAppliance() {
-        return new Appliance(name, model, brand, watts);
-    }
 
     public Appliance toEntity() {
         return new Appliance(this);

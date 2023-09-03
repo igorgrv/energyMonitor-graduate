@@ -1,20 +1,15 @@
 package graduate.energymonitor.domains.appliance.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import graduate.energymonitor.domains.appliance.controller.dto.ApplianceLocationResidentRequest;
+import graduate.energymonitor.domains.consumption.entity.Consumption;
 import graduate.energymonitor.domains.location.entity.Location;
 import graduate.energymonitor.domains.resident.entity.Resident;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,6 +36,9 @@ public class Appliance {
 
     @Column(name = "watts", nullable = false)
     private Integer watts;
+
+    @OneToMany(mappedBy = "appliance", cascade = CascadeType.ALL)
+    private Set<Consumption> consumptions = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)

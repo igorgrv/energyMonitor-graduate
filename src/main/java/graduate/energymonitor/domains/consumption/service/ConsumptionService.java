@@ -22,7 +22,6 @@ public class ConsumptionService {
 
     private final ApplianceRepository applianceRepository;
     private final ConsumptionRepository consumptionRepository;
-    private final UserService userService;
     private static final String APPLIANCE_NOT_FOUND = "Appliance not found";
 
     @Transactional(readOnly = true)
