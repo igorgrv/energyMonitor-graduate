@@ -22,7 +22,7 @@ Welcome to Energy Monitor! An innovative project that combines the powerful tech
 
 ## Entity-relationship
 
-![Entities](./Entities.jpeg)
+<img src="./Entities.jpeg" alt="Entities" style="zoom: 50%;" />
 
 ## Challenges
 
