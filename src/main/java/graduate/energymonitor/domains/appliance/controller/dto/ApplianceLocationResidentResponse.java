@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import graduate.energymonitor.domains.appliance.entity.Appliance;
-import graduate.energymonitor.domains.consumption.dto.ConsumptionApplianceResponse;
 import graduate.energymonitor.domains.consumption.dto.ConsumptionResponse;
-import graduate.energymonitor.domains.consumption.entity.Consumption;
 import graduate.energymonitor.domains.location.controller.dto.LocationResponse;
 import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
 

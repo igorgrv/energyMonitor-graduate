@@ -1,12 +1,8 @@
 package graduate.energymonitor.domains.consumption.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import graduate.energymonitor.domains.consumption.entity.Consumption;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.*;
-
-
 import java.time.Instant;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 // This DTO is used by the ApplianceController

@@ -1,17 +1,16 @@
 package graduate.energymonitor.domains.resident.controller.dto;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import graduate.energymonitor.domains.appliance.controller.dto.ApplianceResponse;
 import graduate.energymonitor.domains.location.controller.dto.LocationResponse;
 import graduate.energymonitor.domains.resident.entity.Resident;
 import graduate.energymonitor.domains.resident.entity.enums.GenderEnum;
 import graduate.energymonitor.domains.resident.entity.enums.RelativesEnum;
-import graduate.energymonitor.domains.user.controller.dto.UserResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 // This DTO is used by ResidentUserLocationApplianceResponse, to allow the client to get a full list with User + Resident + Location + Appliance
 @Schema(title = "ResidentUserLocationApplianceResponse", description = "Object that represents a Resident response")

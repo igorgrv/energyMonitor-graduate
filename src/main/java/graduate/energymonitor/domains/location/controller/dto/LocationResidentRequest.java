@@ -40,6 +40,7 @@ public record LocationResidentRequest(
         location.setNeighborhood(neighborhood);
         location.setNumber(number);
         location.setState(state);
+        location.getResidents().clear();
 
         return location;
     }

@@ -26,7 +26,7 @@ public class ApplianceService {
     private final ApplianceRepository repository;
     private final LocationService locationService;
     private final ResidentService residentService;
-    private static final String APPLIANCE_NOT_FOUND = "Appliance not found";
+    private static final String APPLIANCE_NOT_FOUND = "Appliance not found - ID: ";
 
     @Transactional(readOnly = true)
     public List<ApplianceResponse> findAll() {
@@ -36,7 +36,7 @@ public class ApplianceService {
 
     @Transactional(readOnly = true)
     public ApplianceLocationResidentResponse findById(Long id) {
-        Appliance appliance = repository.findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
+        Appliance appliance = repository.findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND + id));
         return ApplianceLocationResidentResponse.fromEntity(appliance);
     }
 
@@ -59,7 +59,7 @@ public class ApplianceService {
 
     @Transactional
     public ApplianceResponse deleteAppliance(Long id) {
-        Appliance appliance = repository.findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
+        Appliance appliance = repository.findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND + id));
         repository.delete(appliance);
         return ApplianceResponse.fromEntity(appliance);
     }
@@ -67,7 +67,7 @@ public class ApplianceService {
     @Transactional
     public ApplianceResponse updateAppliance(Long id, ApplianceResponse updatedApplianceDto) {
 
-        Appliance appliance = repository.findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND));
+        Appliance appliance = repository.findById(id).orElseThrow(() -> new NotFoundException(APPLIANCE_NOT_FOUND + id));
         Appliance updatedUser = updatedApplianceDto.returnEntityUpdated(appliance);
         repository.save(updatedUser);
 

@@ -1,12 +1,9 @@
 package graduate.energymonitor.domains.consumption.dto;
 
+import java.time.Instant;
+
 import graduate.energymonitor.domains.appliance.controller.dto.ApplianceResponse;
 import graduate.energymonitor.domains.consumption.entity.Consumption;
-import graduate.energymonitor.domains.resident.entity.Resident;
-import graduate.energymonitor.domains.resident.entity.enums.RelativesEnum;
-import graduate.energymonitor.domains.user.controller.dto.UserResponse;
-
-import java.time.Instant;
 
 public record ConsumptionApplianceResponse(Long id,
                                            Instant startOfOperation,
@@ -24,7 +21,7 @@ public record ConsumptionApplianceResponse(Long id,
         return new ConsumptionApplianceResponse(consumption.getId()
             , consumption.getStartOfOperation()
             , consumption.getEndOfOperation()
-            , consumption.getConsumption()
+            , consumption.getConsumptionTaken()
             , applianceResponse);
     }
 
