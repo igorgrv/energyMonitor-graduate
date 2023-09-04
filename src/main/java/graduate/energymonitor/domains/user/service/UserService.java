@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
     private final UserRepository repository;
-    private static final String USER_NOT_FOUND = "User not found";
+    private static final String USER_NOT_FOUND = "User not found - ID: ";
 
     @Transactional(readOnly = true)
     public List<UserResponse> findAll() {
@@ -32,13 +32,13 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserResidentsResponse findById(Long id) {
-        User user = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        User user = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND + id));
         return UserResidentsResponse.fromEntity(user);
     }
 
     @Transactional(readOnly = true)
     public User findByUsername(String username) {
-        return repository.findByUsername(username).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        return repository.findByUsername(username).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND + username));
     }
 
     @Transactional
@@ -55,7 +55,7 @@ public class UserService {
 
     @Transactional
     public UserResidentsResponse deleteUser(Long id) {
-        User user = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        User user = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND + id));
         repository.delete(user);
         return UserResidentsResponse.fromEntity(user);
     }
@@ -63,7 +63,7 @@ public class UserService {
     @Transactional
     public UserResidentsResponse updatePassword(Long id, String newPassword) {
 
-        User existingUser = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        User existingUser = repository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND + id));
         existingUser.setPassword(newPassword);
         User updatedUser = repository.save(existingUser);
 

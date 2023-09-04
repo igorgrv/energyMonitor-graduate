@@ -1,9 +1,8 @@
 package graduate.energymonitor.domains.consumption.dto;
 
-import graduate.energymonitor.domains.appliance.controller.dto.ApplianceResponse;
-import graduate.energymonitor.domains.consumption.entity.Consumption;
-
 import java.time.Instant;
+
+import graduate.energymonitor.domains.consumption.entity.Consumption;
 
 public record ConsumptionResponse(Long id,
                                   Instant startOfOperation,
@@ -14,7 +13,7 @@ public record ConsumptionResponse(Long id,
         return new ConsumptionResponse(consumption.getId()
             , consumption.getStartOfOperation()
             , consumption.getEndOfOperation()
-            , consumption.getConsumption());
+            , consumption.getConsumptionTaken());
     }
 
 }

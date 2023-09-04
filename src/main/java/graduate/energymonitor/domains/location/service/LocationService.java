@@ -1,5 +1,6 @@
 package graduate.energymonitor.domains.location.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class LocationService {
 
     private final LocationRepository repository;
     private final ResidentService residentService;
-    private static final String LOCATION_NOT_FOUND = "Location not found";
+    private static final String LOCATION_NOT_FOUND = "Location not found - ID: ";
 
     @Transactional(readOnly = true)
     public List<LocationResponse> findAll() {
@@ -33,13 +34,13 @@ public class LocationService {
 
     @Transactional(readOnly = true)
     public LocationResidentApplianceResponse findById(Long id) {
-        Location location = repository.findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
+        Location location = repository.findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND + id));
         return LocationResidentApplianceResponse.fromEntity(location);
     }
 
     @Transactional(readOnly = true)
     public Location findByIdLocation(Long id) {
-        return repository.findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND + id));
     }
 
     @Transactional
@@ -56,16 +57,16 @@ public class LocationService {
 
     @Transactional
     public LocationResidentResponse deleteLocation(Long id) {
-        Location location = repository.findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
+        Location location = repository.findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND + id));
         repository.delete(location);
         return LocationResidentResponse.fromEntity(location);
     }
 
     @Transactional
-    public LocationResidentResponse updateLocation(Long id, LocationResidentRequest updatedLocationDto) {
+    public LocationResidentResponse updateLocation(Long id, LocationResidentRequest request) {
 
-        Location location = repository.findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND));
-        Location updatedUser = updatedLocationDto.returnEntityUpdated(location);
+        Location location = repository.findById(id).orElseThrow(() -> new NotFoundException(LOCATION_NOT_FOUND + id));
+        Location updatedUser = request.returnEntityUpdated(location);
 
         Location locationUpdated = repository.save(updatedUser);
         return LocationResidentResponse.fromEntity(locationUpdated);

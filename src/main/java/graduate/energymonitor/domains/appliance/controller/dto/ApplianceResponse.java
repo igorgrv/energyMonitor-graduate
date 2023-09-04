@@ -2,9 +2,6 @@ package graduate.energymonitor.domains.appliance.controller.dto;
 
 import graduate.energymonitor.domains.appliance.entity.Appliance;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Schema(title = "ApplianceResponse", description = "Object that represents a data transfer object for an appliance")
 public record ApplianceResponse(Long id,

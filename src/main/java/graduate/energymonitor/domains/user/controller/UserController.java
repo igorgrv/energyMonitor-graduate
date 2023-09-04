@@ -84,13 +84,13 @@ public class UserController {
 
     @Operation(summary = "Update a password", description = "Method to update user password")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "SUCCESS - Password successfully changed", content = @Content(schema = @Schema(implementation = UserResidentsResponse.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+            @ApiResponse(responseCode = "200", description = "SUCCESS - Password successfully changed"),
     })
     @PutMapping("{id_user}")
-    public ResponseEntity<UserResidentsResponse> updatePassword(@PathVariable("id_user") Long id,
+    public ResponseEntity<String> updatePassword(@PathVariable("id_user") Long id,
             @Valid @RequestBody String password) {
-        UserResidentsResponse updatedUser = service.updatePassword(id, password);
-        return ResponseEntity.ok().body(updatedUser);
+        service.updatePassword(id, password);
+        return ResponseEntity.ok().body("password successfully updated");
     }
 
     @Operation(summary = "Delete a user", description = "Method to delete an existing user")

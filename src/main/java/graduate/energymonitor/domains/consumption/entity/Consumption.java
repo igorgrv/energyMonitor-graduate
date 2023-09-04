@@ -1,13 +1,19 @@
 package graduate.energymonitor.domains.consumption.entity;
 
+import java.time.Instant;
+
 import graduate.energymonitor.domains.appliance.entity.Appliance;
-import graduate.energymonitor.domains.consumption.dto.ConsumptionApplianceRequest;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.Instant;
 
 @Data
 @Entity
@@ -26,17 +32,17 @@ public class Consumption {
     @Column(name = "endOfOperation", nullable = false)
     private Instant endOfOperation;
 
-    @Column(name = "consumption", nullable = false)
-    private Double consumption;
+    @Column(name = "consumptionTaken", nullable = false)
+    private Double consumptionTaken;
 
     @ManyToOne
     @JoinColumn(name = "appliance_id", nullable = false)
     private Appliance appliance;
 
-    public Consumption(Instant startOfOperation, Instant endOfOperation, Double consumption, Appliance appliance) {
+    public Consumption(Instant startOfOperation, Instant endOfOperation, Double consumptionTaken, Appliance appliance) {
         this.startOfOperation = startOfOperation;
         this.endOfOperation = endOfOperation;
-        this.consumption = consumption;
+        this.consumptionTaken = consumptionTaken;
         this.appliance = appliance;
     }
 

@@ -1,19 +1,19 @@
 
 package graduate.energymonitor.domains.consumption.service;
 
+import java.time.Duration;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import graduate.energymonitor.domains.appliance.entity.Appliance;
 import graduate.energymonitor.domains.appliance.repository.ApplianceRepository;
 import graduate.energymonitor.domains.consumption.dto.ConsumptionApplianceRequest;
 import graduate.energymonitor.domains.consumption.dto.ConsumptionApplianceResponse;
 import graduate.energymonitor.domains.consumption.entity.Consumption;
 import graduate.energymonitor.domains.consumption.repository.ConsumptionRepository;
-import graduate.energymonitor.domains.user.service.UserService;
 import graduate.energymonitor.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Duration;
 
 
 @Service
@@ -42,8 +42,7 @@ public class ConsumptionService {
     private static Double getTotalConsumption(ConsumptionApplianceRequest consumptionApplianceRequest, Appliance appliance) {
         Duration hour = Duration.between(consumptionApplianceRequest.startOfOperation(), consumptionApplianceRequest.endOfOperation());
         long hourSeconds = hour.getSeconds();
-        Double totalConsumption = Double.valueOf(hourSeconds * ((double) appliance.getWatts() / 3600));
-        return totalConsumption;
+        return Double.valueOf(hourSeconds * ((double) appliance.getWatts() / 3600));
     }
 
 

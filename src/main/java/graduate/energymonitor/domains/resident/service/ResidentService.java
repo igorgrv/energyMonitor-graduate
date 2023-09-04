@@ -22,7 +22,7 @@ public class ResidentService {
 
     private final ResidentRepository repository;
     private final UserService userService;
-    private static final String RESIDENT_NOT_FOUND = "Resident not found";
+    private static final String RESIDENT_NOT_FOUND = "Resident not found - ID: ";
 
     @Transactional(readOnly = true)
     public List<ResidentResponse> findAll() {
@@ -32,13 +32,13 @@ public class ResidentService {
 
     @Transactional(readOnly = true)
     public ResidentUserLocationApplianceResponse findByIdResponse(Long id) {
-        Resident resident = repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
+        Resident resident = repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND + id));
         return ResidentUserLocationApplianceResponse.fromEntity(resident);
     }
 
     @Transactional(readOnly = true)
     public Resident findById(Long id) {
-        return repository.getReferenceById(id);
+        return repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND + id));
     }
 
     @Transactional
@@ -57,7 +57,7 @@ public class ResidentService {
 
     @Transactional
     public ResidentResponse deleteResident(Long id) {
-        Resident resident = repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
+        Resident resident = repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND + id));
         repository.delete(resident);
         return ResidentResponse.fromEntity(resident);
     }
@@ -65,8 +65,7 @@ public class ResidentService {
     @Transactional
     public ResidentResponse updateResident(Long id, ResidentUserRequest updatedResidentDto) {
 
-        Resident existingResident = repository.findById(id)
-                .orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND));
+        Resident existingResident = repository.findById(id).orElseThrow(() -> new NotFoundException(RESIDENT_NOT_FOUND + id));
         Resident updatedResident = updatedResidentDto.returnEntityUpdated(existingResident);
         Resident residentUpdated = repository.save(updatedResident);
         return ResidentResponse.fromEntity(residentUpdated);

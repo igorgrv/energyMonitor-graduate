@@ -3,7 +3,6 @@ package graduate.energymonitor.domains.user.controller.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-import graduate.energymonitor.domains.resident.controller.dto.ResidentLocationApplianceResponse;
 import graduate.energymonitor.domains.resident.controller.dto.ResidentResponse;
 import graduate.energymonitor.domains.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
