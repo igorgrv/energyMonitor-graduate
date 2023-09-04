@@ -1,0 +1,82 @@
+UserRequest.java
+    String username,
+    String password
+
+
+REQUEST JSON:
+{
+  "username": "fiaphouses",
+  "password": "12345678"
+}
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+FIND
+    UserResidentResponse.java
+        Long id
+        String password
+        Set<ResidentLocationResponse> residents
+            Long id,
+            String cpf,
+            String name,
+            LocalDate birth,
+            GenderEnum gender,
+            RelativesEnum relative,
+            List<LocationResponse> locations
+                String address,
+                String neighborhood,
+                String city,
+                BrazilStatesEnum state,
+                Integer number
+
+
+RESPONSE JSON:
+{
+  "id": 1,
+  "username": "fiaphouses",
+  "residents": [
+    {
+      "id": 1,
+      "cpf": "91482404001",
+      "birth": "Igor",
+      "birth": "1996-03-08",
+      "email": "igortest@hotmail.com",
+      "gender": MALE,
+      "relative": SON,
+      "locations": [
+        {
+          "id": 1,
+          "rua": "rua test",
+          "cidade": "SAOPAULO",
+          "estado": "SP",
+          "cep": "13186-472"
+        },
+        {
+          "id": 2,
+          "rua": "rua test2",
+          "cidade": "SAOPAULO",
+          "estado": "SP",
+          "cep": "13186-472"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "cpf": "91482404001",
+      "nome": "Alex",
+      "nascimento": "1996-03-08",
+      "email": "igortest@hotmail.com",
+      "gender": MALE,
+      "relative": SON,
+      "locations": [
+        {
+          "id": 1,
+          "rua": "test",
+          "cidade": "SAOPAULO",
+          "estado": "SP",
+          "cep": "13186-472"
+        }
+      ]
+    }
+  ]
+}
