@@ -1,5 +1,5 @@
 # Energy Monitor :battery: :bar_chart:
-Tech Challenge - Graduate/Pós-Graduação
+Tech Challenge - Phase 2 - Graduate/Pós-Graduação
 
 GitHub Repository: https://github.com/igorgrv/energyMonitor-graduate
 Swagger: http://localhost:8080/swagger-ui/index.html
